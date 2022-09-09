@@ -7,6 +7,7 @@ import EditHabitModal from '../components/manage-habit/EditHabitModal'
 import { Colors } from '../constants/colors'
 import { categoriesIcons } from '../constants/categories'
 import ValidateHabitInput from '../components/validate-routine/ValidateHabitInput'
+import { dateToString } from '../utils/dates'
 
 const HabitDetailsScreen = ({ route, navigation }) => {
 	const [isModalVisible, setIsModalVisible] = useState(false)
@@ -31,6 +32,10 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 	const closeModal = () => {
 		setIsModalVisible((prev) => !prev)
 	}
+
+	const today = dateToString(new Date(Date.now()))
+
+	console.log('Today :', today)
 
 	return (
 		<View style={styles.container}>
@@ -77,7 +82,7 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 			<View>
 				<ValidateHabitInput
 					habitId={selectedHabitId}
-					date={'2022-09-05'}
+					date={today}
 					reps={reps}
 				/>
 			</View>

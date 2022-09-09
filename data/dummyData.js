@@ -6,6 +6,12 @@ export const dummyData = [
 		why: 'Having the time to workout and/or work on personal projects',
 		frequency: 'day',
 		reps: '1',
+		validations: {
+			'2022-09-01': 1,
+			'2022-09-02': 1,
+			'2022-09-03': 1,
+			'2022-09-04': 0,
+		},
 	},
 	{
 		id: 'r2',
@@ -15,11 +21,11 @@ export const dummyData = [
 		frequency: 'day',
 		reps: '1',
 		startDate: '2022-09-01',
-		history: {
-			'2022-09-01': { check: true, reps: 1 },
-			'2022-09-02': { check: true, reps: 1 },
-			'2022-09-03': { check: true, reps: 1 },
-			'2022-09-04': { check: false, reps: 0 },
+		validations: {
+			'2022-09-01': 1,
+			'2022-09-02': 1,
+			'2022-09-03': 1,
+			'2022-09-04': 0,
 		},
 	},
 	{
@@ -29,6 +35,12 @@ export const dummyData = [
 		why: 'Being alert during the day',
 		frequency: 'day',
 		reps: '1',
+		validations: {
+			'2022-09-01': 1,
+			'2022-09-02': 1,
+			'2022-09-03': 1,
+			'2022-09-04': 0,
+		},
 	},
 	{
 		id: 'r4',
@@ -37,6 +49,12 @@ export const dummyData = [
 		why: 'to keep the doctor away !',
 		frequency: 'day',
 		reps: '2',
+		validations: {
+			'2022-09-01': 1,
+			'2022-09-02': 1,
+			'2022-09-03': 1,
+			'2022-09-04': 0,
+		},
 	},
 	{
 		id: 'r5',
@@ -45,6 +63,9 @@ export const dummyData = [
 		why: 'Build something meaningful, avoid screens for sole entertainment purposes',
 		frequency: 'week',
 		reps: '2',
+		validations: {
+			'2022-09-02': 1,
+		},
 	},
 	{
 		id: 'r6',
@@ -53,6 +74,9 @@ export const dummyData = [
 		why: 'Bond with my daughter',
 		frequency: 'week',
 		reps: '5',
+		validations: {
+			'2022-09-02': 4,
+		},
 	},
 	{
 		id: 'r7',
@@ -61,6 +85,9 @@ export const dummyData = [
 		why: 'Be close to my family',
 		frequency: 'week',
 		reps: '1',
+		validations: {
+			'2022-09-02': 1,
+		},
 	},
 	{
 		id: 'r8',
@@ -69,6 +96,9 @@ export const dummyData = [
 		why: 'Avoid injuries, being less stiff, move freely',
 		frequency: 'month',
 		reps: '2',
+		validations: {
+			'2022-09-02': 1,
+		},
 	},
 	{
 		id: 'r9',
@@ -77,6 +107,9 @@ export const dummyData = [
 		why: 'Stay on track for the 2030 plan',
 		frequency: 'month',
 		reps: '1',
+		validations: {
+			'2022-09-02': 1,
+		},
 	},
 	{
 		id: 'r10',
@@ -85,5 +118,8 @@ export const dummyData = [
 		why: 'Unwind and have the time to reflect ',
 		frequency: 'month',
 		reps: '1',
+		validations: {
+			'2022-09-02': 1,
+		},
 	},
 ]
