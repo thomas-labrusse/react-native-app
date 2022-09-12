@@ -48,6 +48,28 @@ const routineReducer = (state, action) => {
 			console.log('Routine:', updatedRoutine)
 			return updatedRoutine
 		}
+		// TODO: Validate habit v2, with an option to validate multiple dates
+
+		case 'validate_habit2': {
+			const { id, date, input } = action
+			const index = state.findIndex((habit) => habit.id === id)
+
+			let updatedReps = +input
+			// If a validation already exist for that habit on that date, increment the reps
+			if (state[index].validations[date] >= 0) {
+				updatedReps = state[index].validations[date] + Number(input)
+			}
+
+			const updatedValidations = {
+				...state[index].validations,
+				[date]: updatedReps,
+			}
+			const updatedHabit = { ...state[index], validations: updatedValidations }
+			const updatedRoutine = [...state]
+			updatedRoutine[index] = updatedHabit
+			console.log('Routine:', updatedRoutine)
+			return updatedRoutine
+		}
 
 		default: {
 			throw Error('Unknown action : ' + action.type)
