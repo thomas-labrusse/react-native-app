@@ -6,8 +6,6 @@ export const stringDateToDay = (date) => {
 	// const today = new Date(Date.now())
 	const dateObject = new Date(date)
 	const day = dateObject.getDay()
-	console.log('Date object :', dateObject)
-	console.log('Day :', day)
 	switch (day) {
 		case 1:
 			return 'Monday'

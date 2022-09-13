@@ -6,8 +6,8 @@ import { RoutineContext } from '../store/routine-context'
 import EditHabitModal from '../components/manage-habit/EditHabitModal'
 import { Colors } from '../constants/colors'
 import { categoriesIcons } from '../constants/categories'
+// import ValidateHabitInput from '../components/validate-routine/ValidateHabitInputOld'
 import ValidateHabitInput from '../components/validate-routine/ValidateHabitInput'
-import ValidateHabitInput2 from '../components/validate-routine/ValidateHabitInput2'
 import { dateToString } from '../utils/dates'
 
 const HabitDetailsScreen = ({ route, navigation }) => {
@@ -80,15 +80,15 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 					Edit
 				</PrimaryButton>
 			</View>
-			<View>
+			{/* <View>
 				<ValidateHabitInput
 					habitId={selectedHabitId}
 					date={today}
 					reps={reps}
 				/>
-			</View>
+			</View> */}
 			<View>
-				<ValidateHabitInput2
+				<ValidateHabitInput
 					habitId={selectedHabitId}
 					description={description}
 					dates={['2022-09-10', '2022-09-11', '2022-09-12']}

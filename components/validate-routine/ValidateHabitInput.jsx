@@ -1,65 +1,48 @@
 import { useState, useContext } from 'react'
 import { View, Text, Button, StyleSheet } from 'react-native'
-import IconButton from '../UI/IconButton'
+import DaySelect from './DaySelect'
 import { Colors } from '../../constants/colors'
 import { RoutineContext } from '../../store/routine-context'
 
-const ValidateHabitInput = ({ habitId, description, date, reps }) => {
-	const [repsInput, setRepsInput] = useState(reps)
-	// const [validationInput, setValidationInput] = useState({
-	// 	check: true,
-	// 	reps: reps,
-	// })
+const ValidateHabitInput = ({ habitId, description, dates }) => {
+	const [validationInput, setValidationInput] = useState(() => {
+		const initialState = {}
+		dates.forEach((date) => (initialState[date] = false))
+		return initialState
+	})
 
 	const routineContext = useContext(RoutineContext)
 
-	const handleChangeInput = (direction) => {
-		const reps = +repsInput
-		// const reps = Number(validationInput.reps)
-		switch (direction) {
-			case 'increment':
-				console.log('Incrementing')
-				setRepsInput(reps + 1)
-				// setValidationInput({ ...validationInput, reps: reps + 1 })
-				break
-			case 'decrement':
-				console.log('Decrementing')
-				if (reps === 0) return
-				setRepsInput(reps - 1)
-				// setValidationInput({ ...validationInput, reps: reps - 1 })
-				break
-		}
+	const daySelectHandler = (date) => {
+		const curStatus = validationInput[date]
+		setValidationInput((prev) => {
+			return { ...prev, [date]: !curStatus }
+		})
 	}
 
 	const onSubmit = () => {
-		routineContext.validateHabit(habitId, date, repsInput)
-		// routineContext.validateHabit(habitId, date, validationInput)
-		console.log('Date :', date)
-		console.log('Validation input :', repsInput)
+		routineContext.validateHabit(habitId, validationInput)
 	}
 
 	return (
 		<View style={styles.container}>
-			<Text>{date}</Text>
-			<View style={styles.commandsContainer}>
-				<IconButton
-					name={'remove-outline'}
-					size={24}
-					backgroundColor={Colors.primary500}
-					color={'white'}
-					onPress={handleChangeInput.bind(this, 'decrement')}
-				/>
-				<Text>{repsInput}</Text>
-				{/* <Text>{validationInput.reps}</Text> */}
-				<IconButton
-					name={'add-outline'}
-					size={24}
-					backgroundColor={Colors.primary500}
-					color={'white'}
-					onPress={handleChangeInput.bind(this, 'increment')}
-				/>
+			<Text>{description}</Text>
+			<View style={styles.innerContainer}>
+				<View style={styles.datesContainer}>
+					{dates.map((date) => (
+						<DaySelect
+							key={date}
+							date={date}
+							selectDay={daySelectHandler.bind(this, date)}
+							backgroundColor={
+								validationInput[date] ? Colors.primary500 : 'white'
+							}
+							color={validationInput[date] ? 'white' : Colors.grey300}
+						/>
+					))}
+				</View>
+				<Button title='Submit' onPress={onSubmit} />
 			</View>
-			<Button title='Submit' onPress={onSubmit} />
 		</View>
 	)
 }
@@ -68,15 +51,17 @@ export default ValidateHabitInput
 
 const styles = StyleSheet.create({
 	container: {
+		backgroundColor: Colors.grey100,
+	},
+	innerContainer: {
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-around',
-		backgroundColor: Colors.grey100,
 		paddingVertical: 8,
 		paddingHorizontal: 16,
 		marginVertical: 8,
 	},
-	commandsContainer: {
+	datesContainer: {
 		flexDirection: 'row',
 		alignItems: 'center',
 	},

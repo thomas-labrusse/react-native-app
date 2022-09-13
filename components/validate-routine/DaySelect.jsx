@@ -2,7 +2,6 @@ import { Pressable, StyleSheet, View, Text } from 'react-native'
 import { stringDateToDay } from '../../utils/dates'
 
 const DaySelect = ({ date, selectDay, color, backgroundColor }) => {
-	console.log(stringDateToDay(date))
 	return (
 		<Pressable
 			onPress={selectDay}
