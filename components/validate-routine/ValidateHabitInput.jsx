@@ -51,6 +51,7 @@ export default ValidateHabitInput
 
 const styles = StyleSheet.create({
 	container: {
+		marginVertical: 12,
 		backgroundColor: Colors.grey100,
 	},
 	innerContainer: {

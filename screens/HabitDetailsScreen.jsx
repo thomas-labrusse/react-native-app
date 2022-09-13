@@ -6,9 +6,16 @@ import { RoutineContext } from '../store/routine-context'
 import EditHabitModal from '../components/manage-habit/EditHabitModal'
 import { Colors } from '../constants/colors'
 import { categoriesIcons } from '../constants/categories'
-// import ValidateHabitInput from '../components/validate-routine/ValidateHabitInputOld'
 import ValidateHabitInput from '../components/validate-routine/ValidateHabitInput'
-import { dateToString } from '../utils/dates'
+import {
+	dateToISOStringNoTime,
+	getCurrentWeekDates,
+	getPreviousWeekDates,
+} from '../utils/dates'
+import { filterValidations } from '../utils/utils'
+
+const currentWeekDates = getCurrentWeekDates()
+const previousWeekDates = getPreviousWeekDates()
 
 const HabitDetailsScreen = ({ route, navigation }) => {
 	const [isModalVisible, setIsModalVisible] = useState(false)
@@ -20,7 +27,17 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 		(habit) => habit.id === selectedHabitId
 	)
 
-	const { description, category, why, frequency, reps } = myHabit
+	const { description, category, why, frequency, reps, validations } = myHabit
+
+	const unvalidatedCurrentWeekDates = filterValidations(
+		validations,
+		currentWeekDates
+	)
+
+	const unvalidatedPreviousWeekDates = filterValidations(
+		validations,
+		previousWeekDates
+	)
 
 	const deleteHandler = () => {
 		routineContext.deleteHabit(selectedHabitId)
@@ -34,7 +51,7 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 		setIsModalVisible((prev) => !prev)
 	}
 
-	const today = dateToString(new Date(Date.now()))
+	const today = dateToISOStringNoTime(new Date(Date.now()))
 
 	console.log('Today :', today)
 
@@ -80,21 +97,21 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 					Edit
 				</PrimaryButton>
 			</View>
-			{/* <View>
-				<ValidateHabitInput
-					habitId={selectedHabitId}
-					date={today}
-					reps={reps}
-				/>
-			</View> */}
 			<View>
 				<ValidateHabitInput
 					habitId={selectedHabitId}
 					description={description}
-					dates={['2022-09-10', '2022-09-11', '2022-09-12']}
+					dates={unvalidatedCurrentWeekDates}
 				/>
 			</View>
-			{/* <Text>Id: {id}</Text> */}
+			<View>
+				<ValidateHabitInput
+					habitId={selectedHabitId}
+					description={description}
+					dates={unvalidatedPreviousWeekDates}
+				/>
+			</View>
+			<PrimaryButton onPress={getPreviousWeekDates}>Test</PrimaryButton>
 		</View>
 	)
 }
