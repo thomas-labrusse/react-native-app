@@ -7,10 +7,10 @@ export const dummyData = [
 		frequency: 'day',
 		reps: '1',
 		validations: {
-			'2022-09-01': 1,
-			'2022-09-02': 1,
-			'2022-09-03': 1,
-			'2022-09-04': 0,
+			'2022-09-01': true,
+			'2022-09-02': false,
+			'2022-09-03': true,
+			'2022-09-04': true,
 		},
 	},
 	{
@@ -22,10 +22,10 @@ export const dummyData = [
 		reps: '1',
 		startDate: '2022-09-01',
 		validations: {
-			'2022-09-01': 1,
-			'2022-09-02': 1,
-			'2022-09-03': 1,
-			'2022-09-04': 0,
+			'2022-09-01': true,
+			'2022-09-02': false,
+			'2022-09-03': true,
+			'2022-09-04': true,
 		},
 	},
 	{
@@ -36,10 +36,10 @@ export const dummyData = [
 		frequency: 'day',
 		reps: '1',
 		validations: {
-			'2022-09-01': 1,
-			'2022-09-02': 1,
-			'2022-09-03': 1,
-			'2022-09-04': 0,
+			'2022-09-01': true,
+			'2022-09-02': false,
+			'2022-09-03': true,
+			'2022-09-04': true,
 		},
 	},
 	{
@@ -50,10 +50,10 @@ export const dummyData = [
 		frequency: 'day',
 		reps: '2',
 		validations: {
-			'2022-09-01': 1,
-			'2022-09-02': 1,
-			'2022-09-03': 1,
-			'2022-09-04': 0,
+			'2022-09-01': true,
+			'2022-09-02': false,
+			'2022-09-03': true,
+			'2022-09-04': true,
 		},
 	},
 	{
@@ -64,7 +64,10 @@ export const dummyData = [
 		frequency: 'week',
 		reps: '2',
 		validations: {
-			'2022-09-02': 1,
+			'2022-09-01': true,
+			'2022-09-02': false,
+			'2022-09-03': true,
+			'2022-09-04': true,
 		},
 	},
 	{
@@ -75,7 +78,10 @@ export const dummyData = [
 		frequency: 'week',
 		reps: '5',
 		validations: {
-			'2022-09-02': 4,
+			'2022-09-01': true,
+			'2022-09-02': false,
+			'2022-09-03': true,
+			'2022-09-04': true,
 		},
 	},
 	{
@@ -86,7 +92,10 @@ export const dummyData = [
 		frequency: 'week',
 		reps: '1',
 		validations: {
-			'2022-09-02': 1,
+			'2022-09-01': false,
+			'2022-09-02': false,
+			'2022-09-03': false,
+			'2022-09-04': false,
 		},
 	},
 	{
@@ -97,7 +106,10 @@ export const dummyData = [
 		frequency: 'month',
 		reps: '2',
 		validations: {
-			'2022-09-02': 1,
+			'2022-09-01': true,
+			'2022-09-02': false,
+			'2022-09-03': true,
+			'2022-09-04': false,
 		},
 	},
 	{
@@ -108,7 +120,10 @@ export const dummyData = [
 		frequency: 'month',
 		reps: '1',
 		validations: {
-			'2022-09-02': 1,
+			'2022-09-01': false,
+			'2022-09-02': false,
+			'2022-09-03': false,
+			'2022-09-04': false,
 		},
 	},
 	{
@@ -119,7 +134,10 @@ export const dummyData = [
 		frequency: 'month',
 		reps: '1',
 		validations: {
-			'2022-09-02': 1,
+			'2022-09-01': false,
+			'2022-09-02': false,
+			'2022-09-03': false,
+			'2022-09-04': true,
 		},
 	},
 ]

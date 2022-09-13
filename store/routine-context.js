@@ -28,41 +28,14 @@ const routineReducer = (state, action) => {
 			updatedRoutine[index] = updatedHabit
 			return updatedRoutine
 		}
+
 		case 'validate_habit': {
-			const { id, date, input } = action
+			const { id, input } = action
 			const index = state.findIndex((habit) => habit.id === id)
-
-			let updatedReps = +input
-			// If a validation already exist for that habit on that date, increment the reps
-			if (state[index].validations[date] >= 0) {
-				updatedReps = state[index].validations[date] + Number(input)
-			}
 
 			const updatedValidations = {
 				...state[index].validations,
-				[date]: updatedReps,
-			}
-			const updatedHabit = { ...state[index], validations: updatedValidations }
-			const updatedRoutine = [...state]
-			updatedRoutine[index] = updatedHabit
-			console.log('Routine:', updatedRoutine)
-			return updatedRoutine
-		}
-		// TODO: Validate habit v2, with an option to validate multiple dates
-
-		case 'validate_habit2': {
-			const { id, date, input } = action
-			const index = state.findIndex((habit) => habit.id === id)
-
-			let updatedReps = +input
-			// If a validation already exist for that habit on that date, increment the reps
-			if (state[index].validations[date] >= 0) {
-				updatedReps = state[index].validations[date] + Number(input)
-			}
-
-			const updatedValidations = {
-				...state[index].validations,
-				[date]: updatedReps,
+				...input,
 			}
 			const updatedHabit = { ...state[index], validations: updatedValidations }
 			const updatedRoutine = [...state]
@@ -100,11 +73,10 @@ const RoutineContextProvider = ({ children }) => {
 		})
 	}
 
-	const validateHabit = (id, date, input) => {
+	const validateHabit = (id, input) => {
 		dispatch({
 			type: 'validate_habit',
 			id: id,
-			date: date,
 			input: input,
 		})
 	}
