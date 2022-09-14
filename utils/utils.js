@@ -1,3 +1,3 @@
 export const filterValidations = (validations, dates) => {
-	return dates.filter((date) => validations[date] !== true)
+	return dates.filter((date) => !(date in validations))
 }
