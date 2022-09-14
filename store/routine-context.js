@@ -7,7 +7,7 @@ export const RoutineContext = createContext({
 	createHabit: () => {},
 	deleteHabit: (id) => {},
 	updateHabit: (id) => {},
-	validateHabit: (id) => {},
+	validateHabit: (id, input) => {},
 })
 
 const routineReducer = (state, action) => {

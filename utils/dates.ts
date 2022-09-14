@@ -24,7 +24,7 @@ export const isYesterday = (date) => {
 	)
 }
 
-export const stringDateToDay = (date) => {
+export const stringDateToDay = (date: string) => {
 	const dateObject = new Date(date)
 	if (isToday(dateObject)) {
 		return 'Today'
@@ -56,6 +56,22 @@ export const stringDateToDay = (date) => {
 			break
 	}
 }
+
+export const getLastSevenDates = () => {
+	const today = new Date(Date.now())
+
+	// const currentWeekDay = today.getDay()
+	let lastSevenDates = []
+	for (let i = 0; i < 7; i++) {
+		const day = today.getDate() - i
+		// using new Date() instead of "today" because setDate changes its value
+		const date = new Date(new Date().setDate(day))
+		lastSevenDates.push(dateToISOStringNoTime(date))
+	}
+	return lastSevenDates
+}
+
+// NOTE: method below only for week validations
 
 export const getCurrentWeekDates = () => {
 	const today = new Date(Date.now())
