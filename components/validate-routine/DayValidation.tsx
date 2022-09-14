@@ -3,6 +3,7 @@ import { View, StyleSheet, Button, Text } from 'react-native'
 import { Colors } from '../../constants/colors'
 import { RoutineContext } from '../../store/routine-context'
 import { stringDateToDay } from '../../utils/dates'
+import IconButton from '../UI/IconButton'
 
 const DayValidation = ({
 	habitId,
@@ -29,9 +30,19 @@ const DayValidation = ({
 
 	return (
 		<View style={styles.container}>
-			<Button title='X' onPress={onFailHandler} />
+			<IconButton
+				name='close-outline'
+				onPress={onFailHandler}
+				backgroundColor={Colors.warning}
+				color='white'
+			/>
 			<Text>{stringDateToDay(date)}</Text>
-			<Button title='Check' onPress={onCheckHandler} />
+			<IconButton
+				name='checkmark-outline'
+				onPress={onCheckHandler}
+				backgroundColor={Colors.check}
+				color='white'
+			/>
 		</View>
 	)
 }
