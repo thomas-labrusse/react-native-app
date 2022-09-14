@@ -88,19 +88,17 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 					Edit
 				</PrimaryButton>
 			</View>
-			<View>
-				<FlatList
-					data={datesList}
-					renderItem={({ item }) => (
-						<DayValidation
-							habitId={selectedHabitId}
-							description={description}
-							date={item}
-						/>
-					)}
-				/>
-			</View>
-			<PrimaryButton onPress={getLastSevenDates}>Test</PrimaryButton>
+			<FlatList
+				style={styles.validationList}
+				data={datesList}
+				renderItem={({ item }) => (
+					<DayValidation
+						habitId={selectedHabitId}
+						description={description}
+						date={item}
+					/>
+				)}
+			/>
 		</View>
 	)
 }
@@ -159,5 +157,9 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
+	},
+	validationList: {
+		flex: 1,
+		marginVertical: 12,
 	},
 })
