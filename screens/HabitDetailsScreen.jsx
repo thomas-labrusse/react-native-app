@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React, { useContext, useState, useEffect } from 'react'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
 import PrimaryButton from '../components/UI/PrimaryButton'
 import { Ionicons } from '@expo/vector-icons'
 import { RoutineContext } from '../store/routine-context'
@@ -14,6 +14,7 @@ const lastSevenDates = getLastSevenDates()
 
 const HabitDetailsScreen = ({ route, navigation }) => {
 	const [isModalVisible, setIsModalVisible] = useState(false)
+	const [datesList, setDatesList] = useState(lastSevenDates)
 	const routineContext = useContext(RoutineContext)
 
 	const selectedHabitId = route.params?.habitId
@@ -21,8 +22,13 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 	const myHabit = routineContext.routine.find(
 		(habit) => habit.id === selectedHabitId
 	)
-
 	const { description, category, why, frequency, reps, validations } = myHabit
+
+	useEffect(() => {
+		const filteredDatesList = filterValidations(validations, [...datesList])
+
+		setDatesList(filteredDatesList)
+	}, [validations])
 
 	const unvalidatedDates = filterValidations(validations, lastSevenDates)
 
@@ -83,13 +89,16 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 				</PrimaryButton>
 			</View>
 			<View>
-				{lastSevenDates.map((date) => (
-					<DayValidation
-						habitId={selectedHabitId}
-						description={description}
-						date={date}
-					/>
-				))}
+				<FlatList
+					data={datesList}
+					renderItem={({ item }) => (
+						<DayValidation
+							habitId={selectedHabitId}
+							description={description}
+							date={item}
+						/>
+					)}
+				/>
 			</View>
 			<PrimaryButton onPress={getLastSevenDates}>Test</PrimaryButton>
 		</View>
