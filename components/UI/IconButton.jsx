@@ -36,8 +36,8 @@ export default IconButton
 const styles = StyleSheet.create({
 	buttonContainer: {
 		borderRadius: 100,
-		height: 32,
-		width: 32,
+		height: 36,
+		width: 36,
 		margin: 4,
 		alignItems: 'center',
 		justifyContent: 'center',
