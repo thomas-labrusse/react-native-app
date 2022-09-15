@@ -1,6 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
-import PrimaryButton from '../components/UI/PrimaryButton'
+import React, { useContext, useState, useEffect, useLayoutEffect } from 'react'
+import { View, Text, StyleSheet, FlatList, LayoutAnimation } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { RoutineContext } from '../store/routine-context'
 import EditHabitModal from '../components/manage-habit/EditHabitModal'
@@ -9,6 +8,35 @@ import { categoriesIcons } from '../constants/categories'
 import { getLastSevenDates } from '../utils/dates'
 import { filterValidations } from '../utils/utils'
 import DayValidation from '../components/validate-routine/DayValidation'
+import IconButton from '../components/UI/IconButton'
+
+// LAYOUT ANIMATION
+// Setup to allow Layout Animation on Android
+if (
+	Platform.OS === 'android' &&
+	UIManager.setLayoutAnimationEnabledExperimental
+) {
+	UIManager.setLayoutAnimationEnabledExperimental(true)
+}
+
+const LayoutAnimationConfig = {
+	duration: 100,
+	update: {
+		duration: 100,
+		type: LayoutAnimation.Types.easeInEaseOut,
+	},
+	delete: {
+		duration: 100,
+		type: LayoutAnimation.Types.easeInEaseOut,
+		property: LayoutAnimation.Properties.opacity,
+		springDamping: 0.7,
+	},
+	create: {
+		duration: 100,
+		type: LayoutAnimation.Types.easeInEaseOut,
+		property: LayoutAnimation.Properties.opacity,
+	},
+}
 
 const lastSevenDates = getLastSevenDates()
 
@@ -22,17 +50,41 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 	const myHabit = routineContext.routine.find(
 		(habit) => habit.id === selectedHabitId
 	)
-	const { description, category, why, frequency, reps, validations } = myHabit
+	const { description, category, frequency, reps, validations } = myHabit
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const filteredDatesList = filterValidations(validations, [...datesList])
-
+		// Animating list on item validation
+		LayoutAnimation.configureNext(LayoutAnimationConfig)
 		setDatesList(filteredDatesList)
 	}, [validations])
 
-	const unvalidatedDates = filterValidations(validations, lastSevenDates)
-
-	console.log('LAST SEVEN DAYS, FILTERED:', unvalidatedDates)
+	useLayoutEffect(() => {
+		navigation.setOptions({
+			headerLeft: () => {
+				return (
+					<IconButton
+						name='trash-outline'
+						onPress={deleteHandler}
+						color='white'
+						backgroundColor={Colors.warning}
+						size='24'
+					/>
+				)
+			},
+			headerRight: () => {
+				return (
+					<IconButton
+						name='pencil-outline'
+						onPress={showModal}
+						color='white'
+						backgroundColor={Colors.primary500}
+						size='24'
+					/>
+				)
+			},
+		})
+	}, [navigation, deleteHandler])
 
 	const deleteHandler = () => {
 		routineContext.deleteHabit(selectedHabitId)
@@ -69,28 +121,10 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 					<Text style={styles.tagText}> {frequency}</Text>
 				</View>
 			</View>
-			<View style={styles.whyContainer}>
-				<Text style={styles.whyText}>"{why}"</Text>
-			</View>
-			<View style={styles.buttonsContainer}>
-				<PrimaryButton
-					backgroundColor={Colors.warning}
-					color={'white'}
-					onPress={deleteHandler}
-				>
-					Delete
-				</PrimaryButton>
-				<PrimaryButton
-					backgroundColor={Colors.primary500}
-					color={'white'}
-					onPress={showModal}
-				>
-					Edit
-				</PrimaryButton>
-			</View>
 			<FlatList
 				style={styles.validationList}
 				data={datesList}
+				keyExtractor={(item) => item}
 				renderItem={({ item }) => (
 					<DayValidation
 						habitId={selectedHabitId}
@@ -143,7 +177,7 @@ const styles = StyleSheet.create({
 	whyContainer: {
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: Colors.primary400,
+		backgroundColor: Colors.primary300,
 		borderRadius: 2,
 		padding: 8,
 		marginBottom: 28,
@@ -151,12 +185,7 @@ const styles = StyleSheet.create({
 	whyText: {
 		fontSize: 18,
 		fontWeight: '200',
-		color: 'white',
-	},
-	buttonsContainer: {
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
+		color: Colors.primary500,
 	},
 	validationList: {
 		flex: 1,
