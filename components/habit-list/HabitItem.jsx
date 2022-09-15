@@ -10,7 +10,7 @@ const HabitItem = ({ habit }) => {
 	const navigation = useNavigation()
 
 	const selectHabitHandler = () => {
-		navigation.navigate('Habit details', {
+		navigation.navigate('My Habit', {
 			habitId: id,
 		})
 	}

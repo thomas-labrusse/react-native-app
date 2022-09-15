@@ -41,7 +41,7 @@ export default function App() {
 								component={MyRoutineScreen}
 							/>
 							<Stack.Screen
-								name='Habit details'
+								name='My Habit'
 								component={HabitDetailsScreen}
 								options={{
 									presentation: 'modal',
