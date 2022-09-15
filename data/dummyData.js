@@ -48,7 +48,7 @@ export const dummyData = [
 		category: 'health',
 		why: 'to keep the doctor away !',
 		frequency: 'day',
-		reps: '2',
+		reps: '1',
 		validations: {
 			'2022-09-01': true,
 			'2022-09-02': false,
@@ -103,8 +103,8 @@ export const dummyData = [
 		description: 'Strech for 10 minutes',
 		category: 'health',
 		why: 'Avoid injuries, being less stiff, move freely',
-		frequency: 'month',
-		reps: '2',
+		frequency: 'week',
+		reps: '1',
 		validations: {
 			'2022-09-01': true,
 			'2022-09-02': false,
@@ -117,7 +117,7 @@ export const dummyData = [
 		description: 'Keep track of my finances',
 		category: 'productivity',
 		why: 'Stay on track for the 2030 plan',
-		frequency: 'month',
+		frequency: 'week',
 		reps: '1',
 		validations: {
 			'2022-09-01': false,
@@ -131,7 +131,7 @@ export const dummyData = [
 		description: 'Go for a long walk (>2h)',
 		category: 'health',
 		why: 'Unwind and have the time to reflect ',
-		frequency: 'month',
+		frequency: 'week',
 		reps: '1',
 		validations: {
 			'2022-09-01': false,
