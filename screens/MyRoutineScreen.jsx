@@ -1,13 +1,5 @@
 import React, { useContext, useState, useLayoutEffect, useEffect } from 'react'
-import {
-	View,
-	Text,
-	StyleSheet,
-	Pressable,
-	Button,
-	LayoutAnimation,
-} from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
+import { View, Text, StyleSheet, LayoutAnimation } from 'react-native'
 import HabitsList from '../components/habit-list/HabitsList'
 import { RoutineContext } from '../store/routine-context'
 import { Colors } from '../constants/colors'
@@ -51,24 +43,11 @@ const MyRoutineScreen = ({ navigation }) => {
 
 	useLayoutEffect(() => {
 		navigation.setOptions({
-			headerRight: () => {
-				return (
-					<View style={styles.addButtonContainer}>
-						<Pressable onPress={handleAddButtonPress}>
-							<Ionicons
-								name='add-circle-outline'
-								size='28'
-								color={Colors.primary500}
-							/>
-						</Pressable>
-					</View>
-				)
-			},
 			headerLeft: () => {
 				return (
 					<IconButton
 						name={'funnel-outline'}
-						size={'20'}
+						size='24'
 						backgroundColor={Colors.grey100}
 						color={Colors.grey300}
 						onPress={() => {
@@ -76,6 +55,19 @@ const MyRoutineScreen = ({ navigation }) => {
 							handleSortButtonPress()
 						}}
 					/>
+				)
+			},
+			headerRight: () => {
+				return (
+					<View style={styles.addButtonContainer}>
+						<IconButton
+							name={'add-outline'}
+							size='24'
+							backgroundColor={Colors.primary500}
+							color='white'
+							onPress={handleAddButtonPress}
+						/>
+					</View>
 				)
 			},
 		})
@@ -177,19 +169,6 @@ const MyRoutineScreen = ({ navigation }) => {
 								}
 							>
 								week
-							</PrimaryButton>
-							<PrimaryButton
-								onPress={applyFilter.bind(this, 'month')}
-								backgroundColor={
-									!selectedFilters.includes('month')
-										? Colors.primary500
-										: 'white'
-								}
-								color={
-									!selectedFilters.includes('month') ? 'white' : Colors.grey300
-								}
-							>
-								month
 							</PrimaryButton>
 						</View>
 					</View>
