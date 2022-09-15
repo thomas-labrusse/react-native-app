@@ -31,28 +31,30 @@ export const stringDateToDay = (date: string) => {
 	} else if (isYesterday(dateObject)) {
 		return 'Yesterday'
 	}
-	const day = dateObject.getDay()
-	switch (day) {
+	const weekDay = dateObject.getDay()
+	const month = dateObject.getMonth() + 1
+	const day = dateObject.getDate()
+	switch (weekDay) {
 		case 1:
-			return 'Mon.'
+			return `Mon. ${month}/${day}`
 			break
 		case 2:
-			return 'Tue.'
+			return `Tue. ${month}/${day}`
 			break
 		case 3:
-			return 'Wed.'
+			return `Wed. ${month}/${day}`
 			break
 		case 4:
-			return 'Thu.'
+			return `Thu. ${month}/${day}`
 			break
 		case 5:
-			return 'Fri.'
+			return `Fri. ${month}/${day}`
 			break
 		case 6:
-			return 'Sat.'
+			return `Sat. ${month}/${day}`
 			break
 		case 0:
-			return 'Sun.'
+			return `Sun. ${month}/${day}`
 			break
 	}
 }
