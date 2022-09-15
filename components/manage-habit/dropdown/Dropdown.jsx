@@ -18,7 +18,7 @@ const DATA = [
 	{ id: 4, value: 'option 4' },
 ]
 
-const Dropdown = ({ label, values = DATA, onSelectItem, initialOption }) => {
+const Dropdown = ({ values = DATA, onSelectItem, initialOption }) => {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 	const [selectedOption, setSelectedOption] = useState(initialOption)
 
@@ -36,7 +36,6 @@ const Dropdown = ({ label, values = DATA, onSelectItem, initialOption }) => {
 
 	const renderItem = ({ item }) => (
 		<DropdownItem
-			// label={item.label}
 			value={item.value}
 			onSelect={() => handleSelectOption(item.id)}
 		/>
@@ -45,7 +44,6 @@ const Dropdown = ({ label, values = DATA, onSelectItem, initialOption }) => {
 	return (
 		<>
 			<View style={styles.container}>
-				<Text style={styles.label}>{label}</Text>
 				<Pressable
 					onPress={handleDropdownPress}
 					style={styles.dropdownContainer}
@@ -74,13 +72,6 @@ export default Dropdown
 const styles = StyleSheet.create({
 	container: {
 		marginHorizontal: 4,
-		marginBottom: 8,
-		// backgroundColor: 'green',
-	},
-	label: {
-		fontSize: 12,
-		color: Colors.primary300,
-		marginBottom: 4,
 	},
 	dropdownContainer: {
 		flexDirection: 'row',

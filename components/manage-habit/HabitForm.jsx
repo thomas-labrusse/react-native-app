@@ -1,54 +1,47 @@
 import { useState, useContext } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Alert } from 'react-native'
 import PrimaryButton from '../UI/PrimaryButton'
 import Input from '../UI/Input'
 import Dropdown from './dropdown/Dropdown'
 import { Colors } from '../../constants/colors'
 import { RoutineContext } from '../../store/routine-context'
+import InputLabel from './InputLabel'
 
 const Categories = [
-	{
-		id: 1,
-		value: 'productivity',
-		icon: 'alarm-outline',
-	},
-	{ id: 2, value: 'health', icon: 'body-outline' },
-	{
-		id: 3,
-		value: 'family/friends',
-		icon: 'people-outline',
-	},
+	{ id: 1, value: 'productivity' },
+	{ id: 2, value: 'health' },
+	{ id: 3, value: 'family/friends' },
 ]
 
-const Reps = [
+const WeekReps = [
 	{ id: 1, value: '1' },
 	{ id: 2, value: '2' },
 	{ id: 3, value: '3' },
 	{ id: 4, value: '4' },
 	{ id: 5, value: '5' },
+	{ id: 6, value: '6' },
 ]
 
 const Frequencies = [
 	{ id: 1, value: 'day' },
 	{ id: 2, value: 'week' },
-	{ id: 3, value: 'month' },
 ]
 
 const initialValues = {
+	// id defined directly in the context methods when creating a new habit
 	id: '',
 	description: '',
 	why: '',
 	category: Categories[0],
-	reps: Reps[0],
+	reps: WeekReps[0],
 	frequency: Frequencies[0],
-	// icon: Categories[0].icon,
+	validations: {},
 }
 
 const HabitForm = ({
 	submitButtonLabel,
 	isEditing,
 	onCancel,
-	onSubmit,
 	defaultValues,
 }) => {
 	const [inputs, setInputs] = useState({
@@ -64,7 +57,9 @@ const HabitForm = ({
 		frequency: defaultValues
 			? defaultValues.frequency
 			: initialValues.frequency.value,
-		// icon: defaultValues ? defaultValues.icon : initialValues.icon,
+		validations: defaultValues
+			? defaultValues.validations
+			: initialValues.validations,
 	})
 
 	const routineContext = useContext(RoutineContext)
@@ -77,17 +72,41 @@ const HabitForm = ({
 			}
 		})
 	}
-	const categoryChangeHandler = (category, icon) => {
+	const categoryChangeHandler = (category) => {
 		setInputs((curInputs) => {
 			return {
 				...curInputs,
 				category: category,
-				icon: icon,
 			}
 		})
 	}
+
+	const dayFrequencyChangeHandler = () => {
+		setInputs((curInputs) => {
+			return {
+				...curInputs,
+				frequency: 'day',
+				reps: '1',
+			}
+		})
+	}
+
 	const confirmHandler = () => {
-		if (isEditing) {
+		const validDescription = inputs.description.trim().length > 0
+		const validWhy = inputs.why.trim().length > 0
+		if (!validDescription) {
+			Alert.alert(
+				'Invalid input',
+				'Include a description of you habit to save it.'
+			)
+			return
+		} else if (!validWhy) {
+			Alert.alert(
+				'Invalid input',
+				'Why are you trying to implement that new habit in your routine ?'
+			)
+			return
+		} else if (isEditing) {
 			console.log('Updating habit to routine with the following:', inputs)
 			routineContext.updateHabit(inputs.id, inputs)
 			onCancel()
@@ -102,8 +121,8 @@ const HabitForm = ({
 	return (
 		<View style={styles.container}>
 			<View style={styles.inputsContainer}>
+				<InputLabel label='My habit' />
 				<Input
-					label='My habit'
 					textInputConfig={{
 						placeholder: 'Wake up at 6am ...',
 						maxLength: 80,
@@ -114,8 +133,8 @@ const HabitForm = ({
 						onChangeText: inputChangeHandler.bind(this, 'description'),
 					}}
 				/>
+				<InputLabel label='Why including it in my routine' />
 				<Input
-					label='Why including it in my routine'
 					textInputConfig={{
 						placeholder: 'To feel great !',
 						maxLength: 80,
@@ -127,35 +146,36 @@ const HabitForm = ({
 					}}
 				/>
 				{/* TODO: allow to select initial value for Dropdown component */}
+				<InputLabel label='Category' />
 				<Dropdown
-					label={'Category'}
 					values={Categories}
 					onSelectItem={(index) =>
-						categoryChangeHandler(
-							Categories[index].value,
-							Categories[index].icon
-						)
+						categoryChangeHandler(Categories[index].value)
 					}
 					initialOption={inputs.category}
 				/>
+				<View style={styles.seperator}></View>
+				<InputLabel label='Frequency' />
 				<View style={styles.frequencyContainer}>
-					{/* TODO: allow to select initial value for Dropdown component */}
+					{/* NOTE: only 1 rep allowed for a daily habit */}
+					{inputs.frequency === 'week' && (
+						<Dropdown
+							values={WeekReps}
+							onSelectItem={(index) =>
+								inputChangeHandler('reps', WeekReps[index].value)
+							}
+							initialOption={inputs.reps}
+						/>
+					)}
+					<Text style={styles.unionText}>every</Text>
 					<Dropdown
-						// label={'Reps'}
-						values={Reps}
-						onSelectItem={(index) =>
-							inputChangeHandler('reps', Reps[index].value)
-						}
-						initialOption={inputs.reps}
-					/>
-					<Text>every</Text>
-					{/* TODO: allow to select initial value for Dropdown component */}
-					<Dropdown
-						// label={'Frequency'}
 						values={Frequencies}
-						onSelectItem={(index) =>
+						onSelectItem={(index) => {
+							if (Frequencies[index].value === 'day') {
+								dayFrequencyChangeHandler()
+							}
 							inputChangeHandler('frequency', Frequencies[index].value)
-						}
+						}}
 						initialOption={inputs.frequency}
 					/>
 				</View>
@@ -190,11 +210,20 @@ const styles = StyleSheet.create({
 	},
 	inputsContainer: {
 		width: '100%',
+		marginVertical: 8,
 		marginBottom: 20,
+	},
+	seperator: {
+		marginBottom: 16,
 	},
 	frequencyContainer: {
 		flexDirection: 'row',
 		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: Colors.primary300,
+		borderColor: Colors.primary300,
+		borderWidth: 1,
+		borderRadius: 6,
 	},
 	textInput: {
 		borderWidth: 1,
@@ -205,6 +234,11 @@ const styles = StyleSheet.create({
 		width: '100%',
 		padding: 16,
 		fontSize: 16,
+	},
+	unionText: {
+		color: Colors.primary500,
+		fontSize: 16,
+		// backgroundColor: 'green',
 	},
 	buttonsContainer: {
 		flexDirection: 'row',

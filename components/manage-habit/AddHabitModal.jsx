@@ -8,8 +8,6 @@ const AddHabitModal = ({ isVisible, onClose }) => {
 				submitButtonLabel={'Add'}
 				isEditing={false}
 				onCancel={onClose}
-
-				// onSubmit={}
 			/>
 		</Modal>
 	)
