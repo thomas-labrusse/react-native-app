@@ -6,7 +6,7 @@ import EditHabitModal from '../components/manage-habit/EditHabitModal'
 import { Colors } from '../constants/colors'
 import { categoriesIcons } from '../constants/categories'
 import { getLastSevenDates } from '../utils/dates'
-import { filterValidations } from '../utils/utils'
+import { filterUnvalidated } from '../utils/utils'
 import DayValidation from '../components/validate-routine/DayValidation'
 import IconButton from '../components/UI/IconButton'
 
@@ -53,7 +53,7 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 	const { description, category, frequency, reps, validations } = myHabit
 
 	useLayoutEffect(() => {
-		const filteredDatesList = filterValidations(validations, [...datesList])
+		const filteredDatesList = filterUnvalidated(validations, [...datesList])
 		// Animating list on item validation
 		LayoutAnimation.configureNext(LayoutAnimationConfig)
 		setDatesList(filteredDatesList)
