@@ -1,3 +1,4 @@
+import React from 'react'
 import { View, Pressable, Text, StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
@@ -5,13 +6,13 @@ import { Colors } from '../../constants/colors'
 import { categoriesIcons } from '../../constants/categories'
 
 const HabitItem = ({ habit }) => {
-	const { id, category, description, reps, frequency } = habit
+	const { habitid, category, description, reps, frequency } = habit
 
 	const navigation = useNavigation()
 
 	const selectHabitHandler = () => {
 		navigation.navigate('My Habit', {
-			habitId: id,
+			habitid: habitid,
 		})
 	}
 

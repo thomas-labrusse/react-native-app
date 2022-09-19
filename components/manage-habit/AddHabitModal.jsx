@@ -1,3 +1,4 @@
+import React from 'react'
 import { Modal } from 'react-native'
 import HabitForm from './HabitForm'
 

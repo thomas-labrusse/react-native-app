@@ -9,6 +9,7 @@ import { getLastSevenDates } from '../utils/dates'
 import { filterUnvalidated } from '../utils/utils'
 import DayValidation from '../components/validate-routine/DayValidation'
 import IconButton from '../components/UI/IconButton'
+import { database } from '../data/database'
 
 // LAYOUT ANIMATION
 // Setup to allow Layout Animation on Android
@@ -42,15 +43,20 @@ const lastSevenDates = getLastSevenDates()
 
 const HabitDetailsScreen = ({ route, navigation }) => {
 	const [isModalVisible, setIsModalVisible] = useState(false)
+	const [validations, setValidations] = useState([{}])
 	const [datesList, setDatesList] = useState(lastSevenDates)
 	const routineContext = useContext(RoutineContext)
 
-	const selectedHabitId = route.params?.habitId
+	const selectedHabitId = route.params?.habitid
 
 	const myHabit = routineContext.routine.find(
-		(habit) => habit.id === selectedHabitId
+		(habit) => habit.habitid === selectedHabitId
 	)
-	const { description, category, frequency, reps, validations } = myHabit
+	const { description, category, frequency, reps } = myHabit
+
+	useEffect(() => {
+		database.getValidations(selectedHabitId, setValidations)
+	}, [])
 
 	useLayoutEffect(() => {
 		const filteredDatesList = filterUnvalidated(validations, [...datesList])

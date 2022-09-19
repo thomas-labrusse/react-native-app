@@ -141,3 +141,24 @@ export const dummyData = [
 		},
 	},
 ]
+
+const habits = [
+	{
+		id: 'r1',
+		description: 'Wake up at 6am',
+		category: 'productivity',
+		why: 'Having the time to workout and/or work on personal projects',
+		frequency: 'day',
+		reps: '1',
+	},
+]
+
+const validations = [
+	{ habitId: 'r1', date: '2022-09-01', value: true },
+	{ habitId: 'r2', date: '2022-09-02', value: true },
+]
+
+const parsedValidationsForOneHabit = {
+	'2022-09-01': true,
+	'2022-09-02': true,
+}

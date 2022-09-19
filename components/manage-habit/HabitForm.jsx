@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { View, Text, StyleSheet, Alert } from 'react-native'
 import PrimaryButton from '../UI/PrimaryButton'
 import Input from '../UI/Input'
@@ -13,13 +13,14 @@ const Categories = [
 	{ id: 3, value: 'family/friends' },
 ]
 
+// NOTE: test with DB
 const WeekReps = [
-	{ id: 1, value: '1' },
-	{ id: 2, value: '2' },
-	{ id: 3, value: '3' },
-	{ id: 4, value: '4' },
-	{ id: 5, value: '5' },
-	{ id: 6, value: '6' },
+	{ id: 1, value: 1 },
+	{ id: 2, value: 2 },
+	{ id: 3, value: 3 },
+	{ id: 4, value: 4 },
+	{ id: 5, value: 5 },
+	{ id: 6, value: 6 },
 ]
 
 const Frequencies = [
@@ -29,13 +30,15 @@ const Frequencies = [
 
 const initialValues = {
 	// id defined directly in the context methods when creating a new habit
-	id: '',
+	// NOTE: test with DB
+	// id: '',
 	description: '',
 	why: '',
 	category: Categories[0],
 	reps: WeekReps[0],
 	frequency: Frequencies[0],
-	validations: {},
+	// NOTE: test with DB
+	// validations: {},
 }
 
 const HabitForm = ({
@@ -45,7 +48,10 @@ const HabitForm = ({
 	defaultValues,
 }) => {
 	const [inputs, setInputs] = useState({
-		id: defaultValues ? defaultValues.id : initialValues.id,
+		id: defaultValues && defaultValues.id,
+		// NOTE: test with DB
+		// NOTE: id is set by sqlite
+		// id: defaultValues ? defaultValues.id : null,
 		description: defaultValues
 			? defaultValues.description
 			: initialValues.description,
@@ -57,9 +63,10 @@ const HabitForm = ({
 		frequency: defaultValues
 			? defaultValues.frequency
 			: initialValues.frequency.value,
-		validations: defaultValues
-			? defaultValues.validations
-			: initialValues.validations,
+		// NOTE: test with DB
+		// validations: defaultValues
+		// 	? defaultValues.validations
+		// 	: initialValues.validations,
 	})
 
 	const routineContext = useContext(RoutineContext)
@@ -86,7 +93,7 @@ const HabitForm = ({
 			return {
 				...curInputs,
 				frequency: 'day',
-				reps: '1',
+				reps: 1,
 			}
 		})
 	}

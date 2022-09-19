@@ -1,6 +1,9 @@
-import { createContext, useReducer } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
+import { createContext, useReducer, useEffect } from 'react'
 import { dummyData } from '../data/dummyData'
+import { database } from '../data/database'
+
+// CONTEXT OBJECT
 
 export const RoutineContext = createContext({
 	routine: [],
@@ -10,15 +13,26 @@ export const RoutineContext = createContext({
 	validateHabit: (id, input) => {},
 })
 
+// REDUCER
+
 const routineReducer = (state, action) => {
 	switch (action.type) {
-		case 'create_habit': {
-			const id = new Date().toString() + Math.random().toString()
-			return [...state, { ...action.habit, id: id }]
-		}
+		// case 'set_habits': {
+		// 	return action.habits
+		// }
+
+		// case 'create_habit': {
+		// 	// 1/ create the habit in the DB
+		// 	const habit = action.habit
+		// 	database.addHabitAsync(habit)
+
+		// 	const id = new Date().toString() + Math.random().toString()
+		// 	return [...state, { ...action.habit, id: id }]
+		// }
 		case 'delete_habit': {
 			return state.filter((habit) => habit.id !== action.id)
 		}
+
 		case 'update_habit': {
 			const index = state.findIndex((habit) => habit.id === action.id)
 			const habitToUpdate = state[index]
@@ -51,20 +65,36 @@ const routineReducer = (state, action) => {
 }
 
 const RoutineContextProvider = ({ children }) => {
-	const [myRoutine, dispatch] = useReducer(routineReducer, dummyData)
+	// const [myRoutine, dispatch] = useReducer(routineReducer, dummyData)
 
-	const createHabit = (habit) => {
-		dispatch({
-			type: 'create_habit',
-			habit: habit,
-		})
+	// NEW
+	const [myRoutine, setMyRoutine] = useState(dummyData)
+
+	// NEW
+	const refreshHabits = () => {
+		database.getHabits(setMyRoutine)
 	}
-	const deleteHabit = (id) => {
-		dispatch({
-			type: 'delete_habit',
-			id: id,
-		})
+
+	// NEW
+	useEffect(() => {
+		refreshHabits()
+	}, [database])
+
+	const createHabit = async (habit) => {
+		await database.addHabitAsync(habit, refreshHabits)
 	}
+
+	const deleteHabit = async (id) => {
+		await database.deleteHabitAsync(id, refreshHabits)
+	}
+	// const deleteHabit = (id) => {
+	// 	dispatch({
+	// 		type: 'delete_habit',
+	// 		id: id,
+	// 	})
+	// }
+
+	// TODO: update the updateHabit method
 	const updateHabit = (id, input) => {
 		dispatch({
 			type: 'update_habit',
