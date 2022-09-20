@@ -1,49 +1,29 @@
 import React, { useContext } from 'react'
-import {
-	View,
-	StyleSheet,
-	Text,
-	Pressable,
-	LayoutAnimation,
-} from 'react-native'
+import { View, StyleSheet, Text, Pressable } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { Colors } from '../../constants/colors'
-import { RoutineContext } from '../../store/routine-context'
 import { stringDateToDay } from '../../utils/dates'
 
-// const LayoutAnimationConfig = {
-// 	duration: 300,
-// 	update: {
-// 		type: LayoutAnimation.Types.easeInEaseOut,
-// 	},
-// 	delete: {
-// 		duration: 100,
-// 		type: LayoutAnimation.Types.easeInEaseOut,
-// 		property: LayoutAnimation.Properties.opacity,
-// 	},
-// }
-
-const DayValidation = ({
+const NewDayValidation = ({
 	habitId,
 	date,
+	onValidate,
 }: {
 	habitId: string
 	date: string
-	description: string
+	// TODO: improve onValidate type (function with two parameters)
+	onValidate: any
 }) => {
-	const routineContext = useContext(RoutineContext)
-
-	const onCheckHandler = () => {
-		const input = { [date]: true }
-		console.log(input)
-		routineContext.validateHabit(habitId, input)
+	const onCheckHandler = async () => {
+		const input = { date: date, check: 'true' }
+		console.log('Input via on check handler:', input)
+		await onValidate(habitId, input)
 	}
 
-	const onFailHandler = () => {
-		const input = { [date]: false }
-		console.log(input)
-		routineContext.validateHabit(habitId, input)
-		// LayoutAnimation.configureNext(LayoutAnimationConfig)
+	const onFailHandler = async () => {
+		const input = { date: date, check: 'false' }
+		console.log('Input via on check handler:', input)
+		await onValidate(habitId, input)
 	}
 
 	return (
@@ -71,7 +51,7 @@ const DayValidation = ({
 	)
 }
 
-export default DayValidation
+export default NewDayValidation
 
 const styles = StyleSheet.create({
 	container: {

@@ -4,6 +4,11 @@ import * as SQLite from 'expo-sqlite'
 
 const db = SQLite.openDatabase('db.db')
 
+// Allowing foreign keys, to delete all validations on habit deletion
+db.exec([{ sql: 'PRAGMA foreign_keys = ON;', args: [] }], false, () =>
+	console.log('Foreign keys turned on')
+)
+
 // ##################### NOTE: TABLES SETUP ###############################
 
 const setupDatabaseAsync = async () => {
@@ -119,10 +124,29 @@ const deleteHabitAsync = async (id, successFunc) => {
 
 // ##################### NOTE: VALIDATIONS SETUP ###############################
 
-// TODO: create validation
+const addValidationAsync = async (habitid, input, successFunc) => {
+	return new Promise((resolve, reject) => {
+		console.log('Getting habit id : ', habitid)
+		console.log('input : ', input)
+		db.transaction(
+			(tx) => {
+				tx.executeSql(
+					`INSERT INTO validations(validationdate, validationcheck, habitid) VALUES(?,?,?)`,
+					[input.date, input.check, habitid]
+				)
+			},
+			(_, error) => {
+				reject(error)
+			},
+			(_, success) => {
+				successFunc()
+				resolve(success)
+			}
+		)
+	})
+}
 
 const getValidations = (habitid, successFunc) => {
-	console.log('Getting validation for ID:', habitid)
 	db.transaction(
 		(tx) => {
 			tx.executeSql(
@@ -145,7 +169,7 @@ const getValidations = (habitid, successFunc) => {
 	)
 }
 
-// TODO: delete validation (only when deleting habit ?)
+// TODO: delete validation (only when deleting habit ?) OR managed by ON DELETE CASCADE ?
 
 // ################# NOTE: DEVELOPMENT ONLY ########################
 
@@ -233,12 +257,13 @@ const setupFirstValidationAsync = async () => {
 // #######################################################################
 
 export const database = {
-	getHabits,
-	getValidations,
 	setupDatabaseAsync,
+	addHabitAsync,
+	getHabits,
+	deleteHabitAsync,
+	addValidationAsync,
+	getValidations,
 	setupFirstHabitAsync,
 	setupFirstValidationAsync,
 	dropDatabaseTablesAsync,
-	addHabitAsync,
-	deleteHabitAsync,
 }

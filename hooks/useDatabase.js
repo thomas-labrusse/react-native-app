@@ -12,8 +12,13 @@ const useDatabase = () => {
 		const loadDataAsync = async () => {
 			try {
 				console.log('getting here')
+				// NOTE: Development purposes only
 				await database.dropDatabaseTablesAsync()
+
+				// NOTE: Keep for production
 				await database.setupDatabaseAsync()
+
+				// NOTE: Development purposes only
 				await database.setupFirstHabitAsync()
 				await database.setupFirstValidationAsync()
 

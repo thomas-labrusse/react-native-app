@@ -1,50 +1,19 @@
 import React, { useContext, useState, useEffect, useLayoutEffect } from 'react'
-import { View, Text, StyleSheet, FlatList, LayoutAnimation } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { RoutineContext } from '../store/routine-context'
 import EditHabitModal from '../components/manage-habit/EditHabitModal'
 import { Colors } from '../constants/colors'
 import { categoriesIcons } from '../constants/categories'
-import { getLastSevenDates } from '../utils/dates'
-import { filterUnvalidated } from '../utils/utils'
-import DayValidation from '../components/validate-routine/DayValidation'
 import IconButton from '../components/UI/IconButton'
+import ValidationList from '../components/validate-routine/ValidationList'
+import CalendarValidations from '../components/stats/CalendarValidations'
 import { database } from '../data/database'
-
-// LAYOUT ANIMATION
-// Setup to allow Layout Animation on Android
-if (
-	Platform.OS === 'android' &&
-	UIManager.setLayoutAnimationEnabledExperimental
-) {
-	UIManager.setLayoutAnimationEnabledExperimental(true)
-}
-
-const LayoutAnimationConfig = {
-	duration: 100,
-	update: {
-		duration: 100,
-		type: LayoutAnimation.Types.easeInEaseOut,
-	},
-	delete: {
-		duration: 100,
-		type: LayoutAnimation.Types.easeInEaseOut,
-		property: LayoutAnimation.Properties.opacity,
-		springDamping: 0.7,
-	},
-	create: {
-		duration: 100,
-		type: LayoutAnimation.Types.easeInEaseOut,
-		property: LayoutAnimation.Properties.opacity,
-	},
-}
-
-const lastSevenDates = getLastSevenDates()
 
 const HabitDetailsScreen = ({ route, navigation }) => {
 	const [isModalVisible, setIsModalVisible] = useState(false)
 	const [validations, setValidations] = useState([{}])
-	const [datesList, setDatesList] = useState(lastSevenDates)
+
 	const routineContext = useContext(RoutineContext)
 
 	const selectedHabitId = route.params?.habitid
@@ -52,18 +21,12 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 	const myHabit = routineContext.routine.find(
 		(habit) => habit.habitid === selectedHabitId
 	)
+
 	const { description, category, frequency, reps } = myHabit
 
 	useEffect(() => {
 		database.getValidations(selectedHabitId, setValidations)
 	}, [])
-
-	useLayoutEffect(() => {
-		const filteredDatesList = filterUnvalidated(validations, [...datesList])
-		// Animating list on item validation
-		LayoutAnimation.configureNext(LayoutAnimationConfig)
-		setDatesList(filteredDatesList)
-	}, [validations])
 
 	useLayoutEffect(() => {
 		navigation.setOptions({
@@ -127,17 +90,14 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 					<Text style={styles.tagText}> {frequency}</Text>
 				</View>
 			</View>
-			<FlatList
-				style={styles.validationList}
-				data={datesList}
-				keyExtractor={(item) => item}
-				renderItem={({ item }) => (
-					<DayValidation
-						habitId={selectedHabitId}
-						description={description}
-						date={item}
-					/>
-				)}
+			<CalendarValidations
+				habitId={selectedHabitId}
+				validations={validations}
+			/>
+			<ValidationList
+				habitId={selectedHabitId}
+				validations={validations}
+				setValidations={setValidations}
 			/>
 		</View>
 	)
@@ -192,9 +152,5 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		fontWeight: '200',
 		color: Colors.primary500,
-	},
-	validationList: {
-		flex: 1,
-		marginVertical: 12,
 	},
 })

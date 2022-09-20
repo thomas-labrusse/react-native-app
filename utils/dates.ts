@@ -73,6 +73,21 @@ export const getLastSevenDates = (): string[] => {
 	return lastSevenDates
 }
 
+// NOTE: development purpose only :
+export const getLastXDates = (x: number): string[] => {
+	const today = new Date(Date.now())
+
+	// const currentWeekDay = today.getDay()
+	let lastSevenDates = []
+	for (let i = 0; i < x; i++) {
+		const day = today.getDate() - i
+		// using new Date() instead of "today" because setDate changes its value
+		const date = new Date(new Date().setDate(day))
+		lastSevenDates.push(dateToISOStringNoTime(date))
+	}
+	return lastSevenDates
+}
+
 // NOTE: method below only for week validations
 
 // export const getCurrentWeekDates = () => {
