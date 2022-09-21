@@ -89,6 +89,36 @@ const getHabits = (successFunc) => {
 
 // TODO: update habit in DB function
 
+const updateHabitAsync = async (id, habit, successFunc) => {
+	return new Promise((resolve, reject) => {
+		db.transaction(
+			(tx) => {
+				tx.executeSql(
+					'UPDATE habits SET habitid = ?, description = ?, category = ?, why = ?, frequency = ?, reps=?, start = ? WHERE habitid = ?',
+					[
+						id,
+						habit.description,
+						habit.category,
+						habit.why,
+						habit.frequency,
+						habit.reps,
+						habit.start,
+						id,
+					]
+				)
+			},
+			(_, error) => {
+				console.log('ERROR:', error)
+				reject(error)
+			},
+			(_, success) => {
+				successFunc()
+				resolve(success)
+			}
+		)
+	})
+}
+
 const deleteHabitAsync = async (id, successFunc) => {
 	return new Promise((resolve, reject) => {
 		console.log('Trying to delete new habit:', id)
@@ -169,8 +199,6 @@ const getValidations = (habitid, successFunc) => {
 		}
 	)
 }
-
-// TODO: delete validation (only when deleting habit ?) OR managed by ON DELETE CASCADE ?
 
 // ################# NOTE: DEVELOPMENT ONLY ########################
 
@@ -262,6 +290,7 @@ export const database = {
 	setupDatabaseAsync,
 	addHabitAsync,
 	getHabits,
+	updateHabitAsync,
 	deleteHabitAsync,
 	addValidationAsync,
 	getValidations,

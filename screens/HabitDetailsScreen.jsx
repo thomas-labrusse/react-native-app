@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useLayoutEffect } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Alert } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { RoutineContext } from '../store/routine-context'
 import EditHabitModal from '../components/manage-habit/EditHabitModal'
@@ -58,8 +58,20 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 	}, [navigation, deleteHandler])
 
 	const deleteHandler = () => {
-		routineContext.deleteHabit(selectedHabitId)
-		navigation.goBack()
+		Alert.alert(
+			'Are you sure ?',
+			"Deleting an habit will permanently delete all your related records and stats, you won't be able to get it back.",
+			[
+				{ text: 'Cancel', onPress: () => console.log('Delete canceled') },
+				{
+					text: 'Confirm',
+					onPress: () => {
+						routineContext.deleteHabit(selectedHabitId)
+						navigation.goBack()
+					},
+				},
+			]
+		)
 	}
 
 	const showModal = () => {

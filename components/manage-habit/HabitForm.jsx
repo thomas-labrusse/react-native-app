@@ -47,7 +47,7 @@ const HabitForm = ({
 	defaultValues,
 }) => {
 	const [inputs, setInputs] = useState({
-		id: defaultValues && defaultValues.id,
+		habitid: defaultValues && defaultValues.habitid,
 		// NOTE: test with DB
 		// NOTE: id is set by sqlite
 		// id: defaultValues ? defaultValues.id : null,
@@ -68,6 +68,8 @@ const HabitForm = ({
 		// 	? defaultValues.validations
 		// 	: initialValues.validations,
 	})
+
+	console.log('Default values:', defaultValues)
 
 	const routineContext = useContext(RoutineContext)
 
@@ -115,7 +117,7 @@ const HabitForm = ({
 			return
 		} else if (isEditing) {
 			console.log('Updating habit to routine with the following:', inputs)
-			routineContext.updateHabit(inputs.id, inputs)
+			routineContext.updateHabit(inputs.habitid, inputs)
 			onCancel()
 		} else {
 			console.log('Adding following habit to routine', inputs)

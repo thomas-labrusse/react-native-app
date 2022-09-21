@@ -72,6 +72,11 @@ const RoutineContextProvider = ({ children }) => {
 		await database.addHabitAsync(habit, refreshHabits)
 	}
 
+	// TODO: update the updateHabit method
+	const updateHabit = async (id, habit) => {
+		await database.updateHabitAsync(id, habit, refreshHabits)
+	}
+
 	const deleteHabit = async (id) => {
 		await database.deleteHabitAsync(id, refreshHabits)
 	}
@@ -82,14 +87,13 @@ const RoutineContextProvider = ({ children }) => {
 	// 	})
 	// }
 
-	// TODO: update the updateHabit method
-	const updateHabit = (id, input) => {
-		dispatch({
-			type: 'update_habit',
-			id: id,
-			input: input,
-		})
-	}
+	// const updateHabit = (id, input) => {
+	// 	dispatch({
+	// 		type: 'update_habit',
+	// 		id: id,
+	// 		input: input,
+	// 	})
+	// }
 
 	const validateHabit = (id, input) => {
 		dispatch({

@@ -18,7 +18,7 @@ const HabitsList = ({ routine }) => {
 			{routine.length > 0 ? (
 				<FlatList
 					data={routine}
-					keyExtractor={(item) => item.id}
+					keyExtractor={(item) => item.habitid}
 					renderItem={renderHabitItem}
 				/>
 			) : (

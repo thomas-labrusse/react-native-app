@@ -28,9 +28,9 @@ const Stats = ({ validations, start }) => {
 			<InputLabel label='Last 4 weeks' />
 			<View style={styles.container}>
 				<View style={styles.innerContainer}>
-					{allValidations.map((date) => (
+					{allValidations.map((date, index) => (
 						<CalendarDay
-							key={date.validationdate}
+							key={date.validationdate || index.toString()}
 							date={date.validationdate}
 							check={date.validationcheck}
 						/>
