@@ -17,18 +17,6 @@ export const RoutineContext = createContext({
 
 const routineReducer = (state, action) => {
 	switch (action.type) {
-		// case 'set_habits': {
-		// 	return action.habits
-		// }
-
-		// case 'create_habit': {
-		// 	// 1/ create the habit in the DB
-		// 	const habit = action.habit
-		// 	database.addHabitAsync(habit)
-
-		// 	const id = new Date().toString() + Math.random().toString()
-		// 	return [...state, { ...action.habit, id: id }]
-		// }
 		case 'delete_habit': {
 			return state.filter((habit) => habit.id !== action.id)
 		}

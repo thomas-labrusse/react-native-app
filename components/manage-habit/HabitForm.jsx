@@ -6,6 +6,7 @@ import Dropdown from './dropdown/Dropdown'
 import { Colors } from '../../constants/colors'
 import { RoutineContext } from '../../store/routine-context'
 import InputLabel from './InputLabel'
+import { dateToISOStringNoTime } from '../../utils/dates'
 
 const Categories = [
 	{ id: 1, value: 'productivity' },
@@ -28,17 +29,15 @@ const Frequencies = [
 	{ id: 2, value: 'week' },
 ]
 
+const today = dateToISOStringNoTime(new Date())
+
 const initialValues = {
-	// id defined directly in the context methods when creating a new habit
-	// NOTE: test with DB
-	// id: '',
 	description: '',
 	why: '',
 	category: Categories[0],
 	reps: WeekReps[0],
 	frequency: Frequencies[0],
-	// NOTE: test with DB
-	// validations: {},
+	start: today,
 }
 
 const HabitForm = ({
@@ -63,6 +62,7 @@ const HabitForm = ({
 		frequency: defaultValues
 			? defaultValues.frequency
 			: initialValues.frequency.value,
+		start: defaultValues ? defaultValues.start : initialValues.start,
 		// NOTE: test with DB
 		// validations: defaultValues
 		// 	? defaultValues.validations

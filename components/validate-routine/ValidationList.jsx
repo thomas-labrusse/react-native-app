@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 import { View, Text, FlatList, StyleSheet, LayoutAnimation } from 'react-native'
 import { database } from '../../data/database'
 import NewDayValidation from './NewDayValidation'
@@ -38,22 +38,16 @@ const lastSevenDates = getLastSevenDates()
 // NOTE: development purpose only
 const lastXDates = getLastXDates(31)
 
-const ValidationList = ({ habitId, validations, setValidations }) => {
-	// const [validations, setValidations] = useState([{}])
+const ValidationList = ({ habitId, validations, setValidations, start }) => {
 	const [unvalidatedDates, setUnvalidatedDates] = useState(lastXDates)
 
-	// useEffect(() => {
-	// 	database.getValidations(habitId, setValidations)
-	// }, [])
+	console.log('Validations in ValidationList:', validations)
 
 	useLayoutEffect(() => {
-		console.log('Current Validations in validation list :', validations)
-		const unvalidatedDatesList = filterUnvalidated(validations, [
-			...unvalidatedDates,
-		])
-		console.log(
-			'Unvalidated dates list from useLayoutEffect:',
-			unvalidatedDatesList
+		const unvalidatedDatesList = filterUnvalidated(
+			validations,
+			[...unvalidatedDates],
+			start
 		)
 		// Animating list on item validation
 		LayoutAnimation.configureNext(LayoutAnimationConfig)

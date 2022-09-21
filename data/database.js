@@ -16,7 +16,7 @@ const setupDatabaseAsync = async () => {
 		db.transaction(
 			(tx) => {
 				tx.executeSql(
-					`CREATE TABLE IF NOT EXISTS habits (habitid INTEGER PRIMARY KEY NOT NULL, description TEXT NOT NULL, category TEXT CHECK(category IN ('productivity', 'health', 'family/friends')) NOT NULL, why TEXT NOT NULL, frequency TEXT CHECK( frequency IN ('day', 'week')) NOT NULL, reps INTEGER NOT NULL)`
+					`CREATE TABLE IF NOT EXISTS habits (habitid INTEGER PRIMARY KEY NOT NULL, description TEXT NOT NULL, category TEXT CHECK(category IN ('productivity', 'health', 'family/friends')) NOT NULL, why TEXT NOT NULL, frequency TEXT CHECK( frequency IN ('day', 'week')) NOT NULL, reps INTEGER NOT NULL, start TEXT NOT NULL)`
 				)
 				tx.executeSql(
 					`CREATE TABLE IF NOT EXISTS validations (validationid INTEGER PRIMARY KEY NOT NULL, validationdate TEXT, validationcheck TEXT, habitid INTEGER NOT NULL, FOREIGN KEY(habitid) REFERENCES habits(habitid) ON DELETE CASCADE)`
@@ -43,13 +43,14 @@ const addHabitAsync = async (habit, successFunc) => {
 		db.transaction(
 			(tx) => {
 				tx.executeSql(
-					`INSERT INTO habits(description, category, why, frequency, reps) VALUES(?,?,?,?,?)`,
+					`INSERT INTO habits(description, category, why, frequency, reps, start) VALUES(?,?,?,?,?,?)`,
 					[
 						habit.description,
 						habit.category,
 						habit.why,
 						habit.frequency,
 						habit.reps,
+						habit.start,
 					]
 				)
 			},
@@ -81,7 +82,7 @@ const getHabits = (successFunc) => {
 			console.log(error)
 		},
 		(_, _success) => {
-			console.log('loaded habits')
+			// console.log('loaded habits')
 		}
 	)
 }
@@ -153,9 +154,9 @@ const getValidations = (habitid, successFunc) => {
 				`SELECT * FROM validations WHERE habitid = ?`,
 				[habitid],
 				(_, { rows: { _array } }) => {
-					console.log('loading validations :', _array)
+					// console.log('loading validations :', _array)
 					successFunc(_array)
-					console.log('NEW VALIDATIONS UPDATED:', _array)
+					// console.log('NEW VALIDATIONS UPDATED:', _array)
 				}
 			)
 		},
@@ -164,7 +165,7 @@ const getValidations = (habitid, successFunc) => {
 			console.log(error)
 		},
 		(_, _success) => {
-			console.log('loaded validations')
+			// console.log('loaded validations')
 		}
 	)
 }
@@ -209,14 +210,15 @@ const setupFirstHabitAsync = async () => {
 		db.transaction(
 			(tx) => {
 				tx.executeSql(
-					`INSERT INTO habits(habitid, description, category, why, frequency, reps) VALUES(?,?,?,?,?,?)`,
+					`INSERT INTO habits(habitid, description, category, why, frequency, reps, start) VALUES(?,?,?,?,?,?,?)`,
 					[
 						1,
-						'my first habit from db',
+						'Wake up every morning at 6am.',
 						'productivity',
-						'make sure the DB works properly',
+						'Have the time to workout',
 						'day',
 						1,
+						'2022-09-01',
 					]
 				)
 			},
