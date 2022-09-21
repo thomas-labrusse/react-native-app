@@ -20,7 +20,7 @@ export const dummyData = [
 		why: 'Staying in good shape, feel more relaxed, be stronger, live longer',
 		frequency: 'day',
 		reps: '1',
-		startDate: '2022-09-01',
+		start: '2022-09-01',
 		validations: {
 			'2022-09-01': true,
 			'2022-09-02': false,
