@@ -16,13 +16,11 @@ const NewDayValidation = ({
 }) => {
 	const onCheckHandler = async () => {
 		const input = { date: date, check: 'true' }
-		console.log('Input via on check handler:', input)
 		await onValidate(habitId, input)
 	}
 
 	const onFailHandler = async () => {
 		const input = { date: date, check: 'false' }
-		console.log('Input via on check handler:', input)
 		await onValidate(habitId, input)
 	}
 
