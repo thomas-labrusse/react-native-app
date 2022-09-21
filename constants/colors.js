@@ -6,6 +6,6 @@ export const Colors = {
 	grey300: '#8f8f8f',
 	grey400: '#7f7f7f',
 	warning: '#c55959',
-	// warning: '#a93b3b',
 	check: '#84A98C',
+	unchecked: '#fbb13c',
 }
