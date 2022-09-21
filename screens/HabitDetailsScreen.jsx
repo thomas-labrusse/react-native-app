@@ -7,11 +7,13 @@ import { Colors } from '../constants/colors'
 import { categoriesIcons } from '../constants/categories'
 import IconButton from '../components/UI/IconButton'
 import ValidationList from '../components/validate-routine/ValidationList'
-import CalendarValidations from '../components/stats/CalendarValidations'
+import Stats from '../components/stats/Stats'
 import { database } from '../data/database'
+import PrimaryButton from '../components/UI/PrimaryButton'
 
 const HabitDetailsScreen = ({ route, navigation }) => {
 	const [isModalVisible, setIsModalVisible] = useState(false)
+	const [activeView, setActiveView] = useState('checks')
 	const [validations, setValidations] = useState([{}])
 
 	const routineContext = useContext(RoutineContext)
@@ -22,7 +24,7 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 		(habit) => habit.habitid === selectedHabitId
 	)
 
-	const { description, category, frequency, reps } = myHabit
+	const { description, category, frequency, reps, start } = myHabit
 
 	useEffect(() => {
 		database.getValidations(selectedHabitId, setValidations)
@@ -67,6 +69,10 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 		setIsModalVisible((prev) => !prev)
 	}
 
+	const toggleViews = (view) => {
+		setActiveView(view)
+	}
+
 	return (
 		<View style={styles.container}>
 			<EditHabitModal
@@ -90,15 +96,34 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 					<Text style={styles.tagText}> {frequency}</Text>
 				</View>
 			</View>
-			<CalendarValidations
-				habitId={selectedHabitId}
-				validations={validations}
-			/>
-			<ValidationList
-				habitId={selectedHabitId}
-				validations={validations}
-				setValidations={setValidations}
-			/>
+			<View style={styles.viewButtonsContainer}>
+				<PrimaryButton
+					onPress={toggleViews.bind(this, 'checks')}
+					backgroundColor={
+						activeView === 'checks' ? Colors.primary500 : 'white'
+					}
+					color={activeView === 'checks' ? 'white' : Colors.grey300}
+				>
+					Checks
+				</PrimaryButton>
+				<PrimaryButton
+					onPress={toggleViews.bind(this, 'stats')}
+					backgroundColor={activeView === 'stats' ? Colors.primary500 : 'white'}
+					color={activeView === 'stats' ? 'white' : Colors.grey300}
+				>
+					Stats
+				</PrimaryButton>
+			</View>
+			{activeView === 'checks' ? (
+				<ValidationList
+					habitId={selectedHabitId}
+					validations={validations}
+					setValidations={setValidations}
+					start={start}
+				/>
+			) : (
+				<Stats validations={validations} start={start} />
+			)}
 		</View>
 	)
 }
@@ -111,7 +136,7 @@ const styles = StyleSheet.create({
 		marginTop: 14,
 	},
 	title: {
-		fontSize: 28,
+		fontSize: 22,
 		fontWeight: 'bold',
 		color: Colors.primary500,
 		marginTop: 8,
@@ -152,5 +177,12 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		fontWeight: '200',
 		color: Colors.primary500,
+	},
+	viewButtonsContainer: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		borderTopWidth: 1,
+		borderTopColor: Colors.grey100,
+		paddingTop: 12,
 	},
 })
