@@ -51,8 +51,9 @@ export default HabitItem
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: Colors.primary300,
-		marginBottom: 10,
+		flex: 1,
+		backgroundColor: Colors.primary100,
+		marginBottom: 20,
 		borderRadius: 4,
 		elevation: 4,
 		shadowColor: 'black',
@@ -71,6 +72,7 @@ const styles = StyleSheet.create({
 	textContainer: {
 		flex: 6,
 		padding: 8,
+		marginVertical: 10,
 	},
 	text: {
 		fontSize: 16,
@@ -80,13 +82,11 @@ const styles = StyleSheet.create({
 		flex: 1,
 		padding: 8,
 		height: '100%',
-		backgroundColor: Colors.primary300,
+		backgroundColor: Colors.primary100,
 		alignItems: 'center',
 		justifyContent: 'center',
 		borderLeftWidth: 1,
 		borderLeftColor: 'white',
-		// borderTopRightRadius: 4,
-		// borderBottomRightRadius: 4,
 	},
 	frequencyIconText: {
 		fontSize: 10,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		padding: 8,
 		height: '100%',
-		backgroundColor: Colors.primary300,
+		backgroundColor: Colors.primary100,
 		alignItems: 'center',
 		justifyContent: 'center',
 		borderLeftWidth: 1,

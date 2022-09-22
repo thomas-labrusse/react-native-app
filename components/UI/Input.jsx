@@ -16,7 +16,7 @@ export default Input
 
 const styles = StyleSheet.create({
 	input: {
-		backgroundColor: Colors.primary300,
+		backgroundColor: Colors.primary100,
 		color: Colors.primary500,
 		padding: 6,
 		borderRadius: 6,

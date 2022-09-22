@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		borderTopLeftRadius: 6,
 		borderBottomLeftRadius: 6,
-		backgroundColor: Colors.warning,
+		backgroundColor: Colors.warning500,
 	},
 	textContainer: {
 		flex: 3,
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		borderTopRightRadius: 6,
 		borderBottomRightRadius: 6,
-		backgroundColor: Colors.check,
+		backgroundColor: Colors.check500,
 	},
 	pressed: {
 		opacity: 0.7,

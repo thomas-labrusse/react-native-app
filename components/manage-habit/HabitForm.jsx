@@ -14,7 +14,6 @@ const Categories = [
 	{ id: 3, value: 'family/friends' },
 ]
 
-// NOTE: test with DB
 const WeekReps = [
 	{ id: 1, value: 1 },
 	{ id: 2, value: 2 },
@@ -229,25 +228,24 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: Colors.primary300,
-		borderColor: Colors.primary300,
+		backgroundColor: Colors.primary100,
+		borderColor: Colors.primary100,
 		borderWidth: 1,
 		borderRadius: 6,
 	},
-	textInput: {
-		borderWidth: 1,
-		borderColor: Colors.primary300,
-		backgroundColor: Colors.primary300,
-		color: Colors.primary500,
-		borderRadius: 6,
-		width: '100%',
-		padding: 16,
-		fontSize: 16,
-	},
+	// textInput: {
+	// 	borderWidth: 1,
+	// 	borderColor: Colors.primary300,
+	// 	backgroundColor: Colors.primary300,
+	// 	color: Colors.primary500,
+	// 	borderRadius: 6,
+	// 	width: '100%',
+	// 	padding: 16,
+	// 	fontSize: 16,
+	// },
 	unionText: {
 		color: Colors.primary500,
 		fontSize: 16,
-		// backgroundColor: 'green',
 	},
 	buttonsContainer: {
 		flexDirection: 'row',

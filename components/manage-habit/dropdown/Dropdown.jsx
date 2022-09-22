@@ -76,9 +76,9 @@ const styles = StyleSheet.create({
 	dropdownContainer: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		backgroundColor: Colors.primary300,
+		backgroundColor: Colors.primary100,
 		color: Colors.primary500,
-		borderColor: Colors.primary300,
+		borderColor: Colors.primary100,
 		borderWidth: 1,
 		borderRadius: 6,
 		padding: 8,
