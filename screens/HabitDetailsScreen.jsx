@@ -9,6 +9,7 @@ import IconButton from '../components/UI/IconButton'
 import ValidationList from '../components/validate-routine/ValidationList'
 import Stats from '../components/stats/Stats'
 import { database } from '../data/database'
+import { StatusBar } from 'expo-status-bar'
 import PrimaryButton from '../components/UI/PrimaryButton'
 
 const HabitDetailsScreen = ({ route, navigation }) => {
@@ -38,7 +39,7 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 						name='trash-outline'
 						onPress={deleteHandler}
 						color='white'
-						backgroundColor={Colors.warning}
+						backgroundColor={Colors.warning500}
 						size='24'
 					/>
 				)
@@ -86,57 +87,67 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 	}
 
 	return (
-		<View style={styles.container}>
-			<EditHabitModal
-				isVisible={isModalVisible}
-				onClose={closeModal}
-				myHabit={myHabit}
-			/>
-			<Text style={styles.title}>{description}</Text>
-			<View style={styles.tagsContainer}>
-				<View style={styles.tag}>
-					<Ionicons
-						name={categoriesIcons[category]}
-						color={Colors.grey300}
-						size='18'
-						style={styles.tagIcon}
-					/>
-					<Text style={styles.tagText}>{category}</Text>
-				</View>
-				<View style={styles.tag}>
-					<Text style={styles.tagText}>{reps} x</Text>
-					<Text style={styles.tagText}> {frequency}</Text>
-				</View>
-			</View>
-			<View style={styles.viewButtonsContainer}>
-				<PrimaryButton
-					onPress={toggleViews.bind(this, 'checks')}
-					backgroundColor={
-						activeView === 'checks' ? Colors.primary500 : 'white'
-					}
-					color={activeView === 'checks' ? 'white' : Colors.grey300}
-				>
-					Checks
-				</PrimaryButton>
-				<PrimaryButton
-					onPress={toggleViews.bind(this, 'stats')}
-					backgroundColor={activeView === 'stats' ? Colors.primary500 : 'white'}
-					color={activeView === 'stats' ? 'white' : Colors.grey300}
-				>
-					Stats
-				</PrimaryButton>
-			</View>
-			{activeView === 'checks' ? (
-				<ValidationList
-					habitId={selectedHabitId}
-					validations={validations}
-					setValidations={setValidations}
-					start={start}
+		<>
+			<StatusBar style='light' />
+			<View style={styles.container}>
+				<EditHabitModal
+					isVisible={isModalVisible}
+					onClose={closeModal}
+					myHabit={myHabit}
 				/>
-			) : (
-				<Stats validations={validations} start={start} />
-			)}
-		</View>
+				<Text style={styles.title}>{description}</Text>
+				<View style={styles.tagsContainer}>
+					<View style={styles.tag}>
+						<Ionicons
+							name={categoriesIcons[category]}
+							color={Colors.grey300}
+							size='18'
+							style={styles.tagIcon}
+						/>
+						<Text style={styles.tagText}>{category}</Text>
+					</View>
+					<View style={styles.tag}>
+						<Text style={styles.tagText}>{reps} x</Text>
+						<Text style={styles.tagText}> {frequency}</Text>
+					</View>
+				</View>
+				<View style={styles.viewButtonsContainer}>
+					<PrimaryButton
+						onPress={toggleViews.bind(this, 'checks')}
+						backgroundColor={
+							activeView === 'checks' ? Colors.primary500 : 'white'
+						}
+						color={activeView === 'checks' ? 'white' : Colors.grey300}
+					>
+						Checks
+					</PrimaryButton>
+					<PrimaryButton
+						onPress={toggleViews.bind(this, 'stats')}
+						backgroundColor={
+							activeView === 'stats' ? Colors.primary500 : 'white'
+						}
+						color={activeView === 'stats' ? 'white' : Colors.grey300}
+					>
+						Stats
+					</PrimaryButton>
+				</View>
+				{activeView === 'checks' ? (
+					<ValidationList
+						habitId={selectedHabitId}
+						validations={validations}
+						setValidations={setValidations}
+						start={start}
+					/>
+				) : (
+					<Stats
+						frequency={frequency}
+						validations={validations}
+						start={start}
+						reps={reps}
+					/>
+				)}
+			</View>
+		</>
 	)
 }
 
@@ -176,19 +187,6 @@ const styles = StyleSheet.create({
 	tagText: {
 		fontSize: 12,
 		color: Colors.grey400,
-	},
-	whyContainer: {
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: Colors.primary300,
-		borderRadius: 2,
-		padding: 8,
-		marginBottom: 28,
-	},
-	whyText: {
-		fontSize: 18,
-		fontWeight: '200',
-		color: Colors.primary500,
 	},
 	viewButtonsContainer: {
 		flexDirection: 'row',
