@@ -24,8 +24,8 @@ const HabitsList = ({ routine }) => {
 			) : (
 				<View style={styles.noHabitsContainer}>
 					<Text style={styles.noHabitsText}>
-						No habits in your routine, or none matching your current filters.
-						Add a new habit now 💪 !
+						You have no habits in your routine, or none matching your current
+						filters. Start tracking a new habit now 💪 !
 					</Text>
 				</View>
 			)}
