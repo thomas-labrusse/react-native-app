@@ -233,14 +233,14 @@ const styles = StyleSheet.create({
 	},
 	sortMenuSubContainerTop: {
 		flexDirection: 'row',
-		paddingHorizontal: 4,
+		paddingHorizontal: 12,
 		alignItems: 'center',
 		paddingBottom: 8,
 	},
 	sortMenuSubContainerBottom: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		paddingHorizontal: 4,
+		paddingHorizontal: 12,
 	},
 	sortMenuButtonsContainer: {
 		flexDirection: 'row',
