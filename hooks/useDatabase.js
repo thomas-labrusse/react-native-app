@@ -20,6 +20,8 @@ const useDatabase = () => {
 
 				// NOTE: Development purposes only
 				await database.setupFirstHabitAsync()
+				await database.setupSecondHabitAsync()
+				await database.setupThirdHabitAsync()
 				await database.setupFirstValidationAsync()
 
 				setIsDBLoadingComplete(true)

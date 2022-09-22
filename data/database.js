@@ -243,10 +243,69 @@ const setupFirstHabitAsync = async () => {
 						1,
 						'Wake up every morning at 6am.',
 						'productivity',
-						'Have the time to workout',
+						'Have the time to workout in the morning',
 						'day',
 						1,
 						'2022-09-01',
+					]
+				)
+			},
+			(_, error) => {
+				console.log('DB error insert first habit')
+				console.log(error)
+				resolve()
+			},
+			(_, success) => {
+				console.log('First habit setup successful')
+				resolve(success)
+			}
+		)
+	})
+}
+
+const setupSecondHabitAsync = async () => {
+	return new Promise((resolve, reject) => {
+		db.transaction(
+			(tx) => {
+				tx.executeSql(
+					`INSERT INTO habits(habitid, description, category, why, frequency, reps, start) VALUES(?,?,?,?,?,?,?)`,
+					[
+						2,
+						'Work out for 30 minutes.',
+						'health',
+						'To be fit as a fiddle, feel alert and ready.',
+						'week',
+						5,
+						'2022-08-28',
+					]
+				)
+			},
+			(_, error) => {
+				console.log('DB error insert first habit')
+				console.log(error)
+				resolve()
+			},
+			(_, success) => {
+				console.log('First habit setup successful')
+				resolve(success)
+			}
+		)
+	})
+}
+const setupThirdHabitAsync = async () => {
+	return new Promise((resolve, reject) => {
+		db.transaction(
+			(tx) => {
+				tx.executeSql(
+					`INSERT INTO habits(habitid, description, category, why, frequency, reps, start) VALUES(?,?,?,?,?,?,?)`,
+					[
+						3,
+						'Stretch for 10 minutes.',
+						'health',
+						'To touch my toes.',
+						'week',
+						1,
+						'2022-08-25',
 					]
 				)
 			},
@@ -295,6 +354,8 @@ export const database = {
 	addValidationAsync,
 	getValidations,
 	setupFirstHabitAsync,
+	setupSecondHabitAsync,
+	setupThirdHabitAsync,
 	setupFirstValidationAsync,
 	dropDatabaseTablesAsync,
 }
