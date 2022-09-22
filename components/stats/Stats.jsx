@@ -1,43 +1,31 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { parseValidationsLastXDates } from '../../utils/utils'
-import CalendarDay from './CalendarDay'
 import InputLabel from '../manage-habit/InputLabel'
 import CurrentStreak from './CurrentStreak'
 import MaxStreak from './MaxStreak'
 import SuccessRate from './SuccessRate'
+import DayBlock from './DayBlock'
+import WeekBlock from './WeekBlock'
+import DailyStats from './DailyStats'
+import WeeklyStats from './WeeklyStats'
 
-const Stats = ({ validations, start }) => {
-	const [allValidations, setAllValidations] = useState([{}])
+const Stats = ({ frequency, validations, start, reps }) => {
+	// const [allValidations, setAllValidations] = useState([{}])
 
-	console.log('All validations :', allValidations)
-
-	useEffect(() => {
-		const parsedValidations = parseValidationsLastXDates(28, validations, start)
-		setAllValidations(parsedValidations)
-	}, [validations])
+	// useEffect(() => {
+	// 	const parsedValidations = parseValidationsLastXDates(28, validations, start)
+	// 	setAllValidations(parsedValidations)
+	// }, [validations])
 
 	return (
-		<>
-			<InputLabel label='Current Streak' />
-			<CurrentStreak validations={allValidations} />
-			<InputLabel label='Success Rate' />
-			<SuccessRate validations={allValidations} />
-			<InputLabel label='Max Streak' />
-			<MaxStreak validations={allValidations} />
-			<InputLabel label='Last 4 weeks' />
-			<View style={styles.container}>
-				<View style={styles.innerContainer}>
-					{allValidations.map((date, index) => (
-						<CalendarDay
-							key={date.validationdate || index.toString()}
-							date={date.validationdate}
-							check={date.validationcheck}
-						/>
-					))}
-				</View>
-			</View>
-		</>
+		<View style={styles.container}>
+			{frequency === 'day' ? (
+				<DailyStats validations={validations} start={start} />
+			) : (
+				<WeeklyStats validations={validations} start={start} reps={reps} />
+			)}
+		</View>
 	)
 }
 
@@ -45,10 +33,6 @@ export default Stats
 
 const styles = StyleSheet.create({
 	container: {
-		alignItems: 'center',
-	},
-	innerContainer: {
-		flexDirection: 'row',
-		flexWrap: 'wrap',
+		marginTop: 12,
 	},
 })

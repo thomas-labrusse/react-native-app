@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Colors } from '../../constants/colors'
 
-const CalendarDay = ({ check }) => {
+const DayBlock = ({ check }) => {
 	let status
 	switch (check) {
 		case 'true':
@@ -25,26 +25,26 @@ const CalendarDay = ({ check }) => {
 	)
 }
 
-export default CalendarDay
+export default DayBlock
 
 const styles = StyleSheet.create({
 	container: {
-		width: 30,
-		height: 30,
-		margin: 4,
+		width: 25,
+		height: 25,
+		margin: 2,
 		borderRadius: 3,
 		overflow: true,
 	},
 	checked: {
 		flex: 1,
-		backgroundColor: Colors.check,
+		backgroundColor: Colors.check400,
 	},
 	failed: {
 		flex: 1,
-		backgroundColor: Colors.warning,
+		backgroundColor: Colors.warning400,
 	},
 	unchecked: {
 		flex: 1,
-		backgroundColor: Colors.unchecked,
+		backgroundColor: Colors.unchecked400,
 	},
 })

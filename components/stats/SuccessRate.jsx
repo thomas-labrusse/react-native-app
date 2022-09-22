@@ -1,11 +1,18 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { Text, StyleSheet } from 'react-native'
+import { Colors } from '../../constants/colors'
 import { getSuccessRate } from '../../utils/stats'
 
 const SuccessRate = ({ validations }) => {
 	const successRate = getSuccessRate(validations)
 
-	return <Text>{successRate}%</Text>
+	return <Text style={styles.text}>{successRate}%</Text>
 }
 
 export default SuccessRate
+
+const styles = StyleSheet.create({
+	text: {
+		color: Colors.primary500,
+	},
+})
