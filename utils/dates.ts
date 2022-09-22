@@ -24,8 +24,12 @@ export const isYesterday = (date: Date) => {
 	)
 }
 
+export const stringDateToDateObject = (date: string) => {
+	return new Date(date)
+}
+
 export const stringDateToDay = (date: string): string => {
-	const dateObject = new Date(date)
+	const dateObject = stringDateToDateObject(date)
 	if (isToday(dateObject)) {
 		return 'Today'
 	} else if (isYesterday(dateObject)) {

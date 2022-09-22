@@ -1,4 +1,4 @@
-import { getLastXDates } from './dates'
+import { getLastXDates, stringDateToDateObject } from './dates'
 
 const filterFromStartingDate = (dates: string[], start: string) => {
 	const filteredDates = dates.filter((date) => date.localeCompare(start) >= 0)
@@ -85,4 +85,67 @@ export const parseValidationsLastXDates = (
 	)
 
 	return completeValidations
+}
+
+const sliceIntoChunks = (arr, chunkSize: number) => {
+	const res = []
+	for (let i = 0; i < arr.length; i += chunkSize) {
+		const chunk = arr.slice(i, i + chunkSize)
+		res.push(chunk)
+	}
+	return res
+}
+
+export const parseValidationsByWeeks = (
+	nbrWeeks: number,
+	validations: [
+		{
+			validationdate: string
+			validationcheck: string
+			validationid: number
+			habitid: number
+		}
+	],
+	start: string
+) => {
+	// 1/ get all validations
+	const completeValidations = parseValidationsLastXDates(
+		nbrWeeks * 7,
+		validations,
+		start
+	)
+
+	// 2/ find id of first monday
+	let firstMondayIndex
+	for (let i = 0; i < 8; i++) {
+		if (
+			stringDateToDateObject(completeValidations[i].validationdate).getDay() ===
+			1
+		) {
+			firstMondayIndex = i
+			break
+		}
+	}
+	// 3/ cut all validations in 2 to isolate the current week
+	let currentWeek = []
+	currentWeek.push(completeValidations.slice(0, firstMondayIndex + 1))
+	console.log('Current week:', currentWeek)
+	const previousWeeks = completeValidations.splice(
+		firstMondayIndex + 1,
+		completeValidations.length
+	)
+	console.log('Previous weeks:', previousWeeks)
+
+	// 4/ cut the remaining weeks in 4 to get the complete weeks
+	const previousWeeksArrays = sliceIntoChunks(previousWeeks, 7)
+	console.log('Previous weeks arrays:', previousWeeksArrays)
+
+	// 5/ remove the last week of the previous segment (if incomplete week)
+	if (previousWeeksArrays[previousWeeksArrays.length - 1].length < 7) {
+		previousWeeksArrays.splice(-1, 1)
+	}
+	// 6/ concat all weeks
+	const res = currentWeek.concat(previousWeeksArrays)
+	console.log('Validations in weeks chunks', res)
+	return res
 }

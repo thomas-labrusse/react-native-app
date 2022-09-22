@@ -63,3 +63,23 @@ export const getSuccessRate = (
 	})
 	return Math.round((totalSuccesses / validations.length) * 100)
 }
+
+export const checkIsWeekValidated = (
+	weekValidations: [
+		{
+			validationdate: string
+			validationcheck: string
+			validationid: number
+			habitid: number
+		}
+	],
+	reps: number
+) => {
+	let validationNb = 0
+	weekValidations.forEach((date) => {
+		if (date.validationcheck === 'true') {
+			validationNb += 1
+		}
+	})
+	return validationNb >= reps
+}
