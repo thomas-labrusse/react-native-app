@@ -25,7 +25,6 @@ const routineReducer = (state, action) => {
 			const index = state.findIndex((habit) => habit.id === action.id)
 			const habitToUpdate = state[index]
 			const updatedHabit = { ...habitToUpdate, ...action.input }
-			console.log('UPDATED HABIT:', updatedHabit)
 			const updatedRoutine = [...state]
 			updatedRoutine[index] = updatedHabit
 			return updatedRoutine
@@ -42,7 +41,6 @@ const routineReducer = (state, action) => {
 			const updatedHabit = { ...state[index], validations: updatedValidations }
 			const updatedRoutine = [...state]
 			updatedRoutine[index] = updatedHabit
-			console.log('Routine:', updatedRoutine)
 			return updatedRoutine
 		}
 

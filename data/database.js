@@ -74,7 +74,6 @@ const getHabits = (successFunc) => {
 		(tx) => {
 			tx.executeSql(`SELECT * FROM habits`, [], (_, { rows: { _array } }) => {
 				successFunc(_array)
-				console.log('NEW TABLE UPDATED:', _array)
 			})
 		},
 		(_, error) => {
@@ -157,8 +156,6 @@ const deleteHabitAsync = async (id, successFunc) => {
 
 const addValidationAsync = async (habitid, input, successFunc) => {
 	return new Promise((resolve, reject) => {
-		console.log('Getting habit id : ', habitid)
-		console.log('input : ', input)
 		db.transaction(
 			(tx) => {
 				tx.executeSql(
@@ -281,12 +278,12 @@ const setupSecondHabitAsync = async () => {
 				)
 			},
 			(_, error) => {
-				console.log('DB error insert first habit')
+				console.log('DB error insert second habit')
 				console.log(error)
 				resolve()
 			},
 			(_, success) => {
-				console.log('First habit setup successful')
+				console.log('Second habit setup successful')
 				resolve(success)
 			}
 		)
@@ -310,12 +307,12 @@ const setupThirdHabitAsync = async () => {
 				)
 			},
 			(_, error) => {
-				console.log('DB error insert first habit')
+				console.log('DB error insert third habit')
 				console.log(error)
 				resolve()
 			},
 			(_, success) => {
-				console.log('First habit setup successful')
+				console.log('third habit setup successful')
 				resolve(success)
 			}
 		)

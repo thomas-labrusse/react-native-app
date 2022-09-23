@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import {
-	parseValidationsLastXDates,
-	parseValidationsByWeeks,
-} from '../../utils/utils'
+import { parseValidationsByWeeks } from '../../utils/utils'
 import InputLabel from '../manage-habit/InputLabel'
-import CurrentStreak from './CurrentStreak'
-import MaxStreak from './MaxStreak'
-import SuccessRate from './SuccessRate'
 import WeekCalendar from './WeekCalendar'
+import { Colors } from '../../constants/colors'
+
+import {
+	getCurrentWeekStreak,
+	getMaxWeekStreak,
+	getWeekSuccessRate,
+} from '../../utils/stats'
 
 const WeeklyStats = ({ validations, start, reps }) => {
 	const [allValidations, setAllValidations] = useState([[]])
+
+	console.log('allValidations:', allValidations)
 
 	useEffect(() => {
 		const parsedValidationsByWeeks = parseValidationsByWeeks(
@@ -22,16 +25,20 @@ const WeeklyStats = ({ validations, start, reps }) => {
 		setAllValidations(parsedValidationsByWeeks)
 	}, [validations])
 
+	const currentStreak = getCurrentWeekStreak(allValidations, reps)
+	const maxStreak = getMaxWeekStreak(allValidations, reps)
+	const successRate = getWeekSuccessRate(allValidations, reps)
+
 	return (
 		<>
 			<View style={styles.container}>
 				<View style={styles.statsContainer}>
 					<InputLabel label='Current Streak' />
-					<CurrentStreak validations={allValidations} />
-					<InputLabel label='Success Rate' />
-					<SuccessRate validations={allValidations} />
+					<Text style={styles.text}>{currentStreak}</Text>
 					<InputLabel label='Max Streak' />
-					<MaxStreak validations={allValidations} />
+					<Text style={styles.text}>{maxStreak}</Text>
+					<InputLabel label='Success Rate' />
+					<Text style={styles.text}>{successRate}%</Text>
 				</View>
 				<View style={styles.calendarContainer}>
 					<InputLabel label='Last 4 weeks' />
@@ -55,5 +62,8 @@ const styles = StyleSheet.create({
 	},
 	calendarContainer: {
 		alignItems: 'center',
+	},
+	text: {
+		color: Colors.primary500,
 	},
 })

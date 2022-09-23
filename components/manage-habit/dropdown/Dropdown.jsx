@@ -23,12 +23,10 @@ const Dropdown = ({ values = DATA, onSelectItem, initialOption }) => {
 	const [selectedOption, setSelectedOption] = useState(initialOption)
 
 	const handleDropdownPress = () => {
-		console.log('Dropdown pressed')
 		setIsDropdownOpen((prev) => !prev)
 	}
 
 	const handleSelectOption = (id) => {
-		console.log('Option selected')
 		setIsDropdownOpen((prev) => !prev)
 		setSelectedOption(values[id - 1].value)
 		onSelectItem(id - 1)

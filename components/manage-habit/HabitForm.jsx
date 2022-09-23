@@ -68,7 +68,6 @@ const HabitForm = ({
 		// 	: initialValues.validations,
 	})
 
-	console.log('Default values:', defaultValues)
 
 	const routineContext = useContext(RoutineContext)
 
@@ -115,11 +114,9 @@ const HabitForm = ({
 			)
 			return
 		} else if (isEditing) {
-			console.log('Updating habit to routine with the following:', inputs)
 			routineContext.updateHabit(inputs.habitid, inputs)
 			onCancel()
 		} else {
-			console.log('Adding following habit to routine', inputs)
 			routineContext.createHabit(inputs)
 			setInputs(defaultValues)
 			onCancel()

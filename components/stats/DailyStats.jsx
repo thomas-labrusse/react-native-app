@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { parseValidationsLastXDates } from '../../utils/utils'
 import InputLabel from '../manage-habit/InputLabel'
-import CurrentStreak from './CurrentStreak'
-import MaxStreak from './MaxStreak'
-import SuccessRate from './SuccessRate'
 import DayBlock from './DayBlock'
+import { Colors } from '../../constants/colors'
+
+import {
+	getCurrentStreak,
+	getMaxStreak,
+	getSuccessRate,
+} from '../../utils/stats'
 
 const DailyStats = ({ validations, start }) => {
 	const [allValidations, setAllValidations] = useState([{}])
@@ -17,16 +21,20 @@ const DailyStats = ({ validations, start }) => {
 		setAllValidations(parsedValidations)
 	}, [validations])
 
+	const currentStreak = getCurrentStreak(allValidations)
+	const maxStreak = getMaxStreak(allValidations)
+	const successRate = getSuccessRate(allValidations)
+
 	return (
 		<>
 			<View style={styles.container}>
 				<View style={styles.statsContainer}>
 					<InputLabel label='Current Streak' />
-					<CurrentStreak validations={allValidations} />
-					<InputLabel label='Success Rate' />
-					<SuccessRate validations={allValidations} />
+					<Text style={styles.text}>{currentStreak}</Text>
 					<InputLabel label='Max Streak' />
-					<MaxStreak validations={allValidations} />
+					<Text style={styles.text}>{maxStreak}</Text>
+					<InputLabel label='Success Rate' />
+					<Text style={styles.text}>{successRate}%</Text>
 				</View>
 				<View style={styles.calendarContainer}>
 					<InputLabel label={`Last ${allValidations.length} days`} />
@@ -64,5 +72,8 @@ const styles = StyleSheet.create({
 	calendar: {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
+	},
+	text: {
+		color: Colors.primary500,
 	},
 })

@@ -19,7 +19,6 @@ export const filterUnvalidated = (
 	start: string
 ): string[] => {
 	const filteredDates = filterFromStartingDate(dates, start)
-	console.log('Filtered dates :', filteredDates)
 	if (validations.length > 0) {
 		const parsedValidations = parseValidations(validations)
 		return filteredDates.filter((date) => !(date in parsedValidations))
@@ -129,16 +128,13 @@ export const parseValidationsByWeeks = (
 	// 3/ cut all validations in 2 to isolate the current week
 	let currentWeek = []
 	currentWeek.push(completeValidations.slice(0, firstMondayIndex + 1))
-	console.log('Current week:', currentWeek)
 	const previousWeeks = completeValidations.splice(
 		firstMondayIndex + 1,
 		completeValidations.length
 	)
-	console.log('Previous weeks:', previousWeeks)
 
 	// 4/ cut the remaining weeks in 4 to get the complete weeks
 	const previousWeeksArrays = sliceIntoChunks(previousWeeks, 7)
-	console.log('Previous weeks arrays:', previousWeeksArrays)
 
 	// 5/ remove the last week of the previous segment (if incomplete week)
 	if (previousWeeksArrays[previousWeeksArrays.length - 1].length < 7) {
@@ -146,6 +142,5 @@ export const parseValidationsByWeeks = (
 	}
 	// 6/ concat all weeks
 	const res = currentWeek.concat(previousWeeksArrays)
-	console.log('Validations in weeks chunks', res)
 	return res
 }

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Text, StyleSheet } from 'react-native'
-import { getCurrentStreak } from '../../utils/stats'
+import { getCurrentStreak, getCurrentWeekStreak } from '../../utils/stats'
 import { Colors } from '../../constants/colors'
 
-const CurrentStreak = ({ validations }) => {
+const CurrentStreak = ({ validations, reps }) => {
 	const currentStreak = getCurrentStreak(validations)
 
 	return <Text style={styles.text}>{currentStreak}</Text>

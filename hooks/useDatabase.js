@@ -11,7 +11,6 @@ const useDatabase = () => {
 	useEffect(() => {
 		const loadDataAsync = async () => {
 			try {
-				console.log('getting here')
 				// NOTE: Development purposes only
 				await database.dropDatabaseTablesAsync()
 

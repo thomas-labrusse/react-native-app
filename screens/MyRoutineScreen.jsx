@@ -85,7 +85,6 @@ const MyRoutineScreen = ({ navigation }) => {
 	}
 
 	const handleSortButtonPress = () => {
-		console.log('Sort button pressed !')
 		setIsSortMenuVisible((prev) => !prev)
 	}
 
