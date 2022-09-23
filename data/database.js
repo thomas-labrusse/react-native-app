@@ -181,7 +181,7 @@ const getValidations = (habitid, successFunc) => {
 				`SELECT * FROM validations WHERE habitid = ?`,
 				[habitid],
 				(_, { rows: { _array } }) => {
-					// console.log('loading validations :', _array)
+					console.log('loading validations :', _array)
 					successFunc(_array)
 					// console.log('NEW VALIDATIONS UPDATED:', _array)
 				}
@@ -193,6 +193,29 @@ const getValidations = (habitid, successFunc) => {
 		},
 		(_, _success) => {
 			// console.log('loaded validations')
+		}
+	)
+}
+
+const getXValidations = (habitid, x, successFunc) => {
+	db.transaction(
+		(tx) => {
+			tx.executeSql(
+				`SELECT * FROM validations WHERE habitid = ? ORDER BY validationdate DESC LIMIT ?`,
+				[habitid, x],
+				(_, { rows: { _array } }) => {
+					// console.log('loading validations :', _array)
+					successFunc(_array)
+					// console.log('NEW VALIDATIONS UPDATED:', _array)
+				}
+			)
+		},
+		(_, error) => {
+			console.log('db error load validations')
+			console.log(error)
+		},
+		(_, _success) => {
+			console.log('loaded validations')
 		}
 	)
 }
@@ -243,7 +266,7 @@ const setupFirstHabitAsync = async () => {
 						'Have the time to workout in the morning',
 						'day',
 						1,
-						'2022-09-01',
+						'2022-08-01',
 					]
 				)
 			},
@@ -324,7 +347,7 @@ const setupFirstValidationAsync = async () => {
 			(tx) => {
 				tx.executeSql(
 					`INSERT INTO validations(validationid, validationdate, validationcheck, habitid) VALUES(?,?,?,?)`,
-					[1, '2022-09-15', 'true', 1]
+					[1, '2022-08-01', 'true', 1]
 				)
 			},
 			(_, error) => {
@@ -350,6 +373,7 @@ export const database = {
 	deleteHabitAsync,
 	addValidationAsync,
 	getValidations,
+	getXValidations,
 	setupFirstHabitAsync,
 	setupSecondHabitAsync,
 	setupThirdHabitAsync,

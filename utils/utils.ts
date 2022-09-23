@@ -95,6 +95,28 @@ const sliceIntoChunks = (arr, chunkSize: number) => {
 	return res
 }
 
+export const getCurrentWeek = (
+	validations: [
+		{
+			validationdate: string
+			validationcheck: string
+			validationid: number
+			habitid: number
+		}
+	]
+) => {
+	let firstMondayIndex
+	for (let i = 0; i < 8; i++) {
+		if (stringDateToDateObject(validations[i].validationdate).getDay() === 1) {
+			firstMondayIndex = i
+			break
+		}
+	}
+	// 3/ cut all validations in 2 to isolate the current week
+	let currentWeek = validations.slice(0, firstMondayIndex + 1)
+	return currentWeek
+}
+
 export const parseValidationsByWeeks = (
 	nbrWeeks: number,
 	validations: [
