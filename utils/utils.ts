@@ -56,7 +56,7 @@ export const parseValidationsLastXDates = (
 	],
 	start: string
 ) => {
-	const dates = getLastXDates(nbrDays)
+	const dates = getLastXDates(nbrDays) // 2022-09-23 --> 2022-09-17
 	const filteredDates = filterFromStartingDate(dates, start)
 	let validationsDates = []
 	validations.forEach((validation) =>
@@ -67,7 +67,7 @@ export const parseValidationsLastXDates = (
 	)
 
 	let completeValidations = [...validations].filter((date, i) => {
-		if (i < nbrDays) return date
+		if (i < nbrDays && filteredDates.includes(date.validationdate)) return date
 	})
 
 	uncheckedDates.forEach((date) =>
