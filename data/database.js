@@ -341,6 +341,65 @@ const setupThirdHabitAsync = async () => {
 		)
 	})
 }
+const setupForthHabitAsync = async () => {
+	return new Promise((resolve, reject) => {
+		db.transaction(
+			(tx) => {
+				tx.executeSql(
+					`INSERT INTO habits(habitid, description, category, why, frequency, reps, start) VALUES(?,?,?,?,?,?,?)`,
+					[
+						4,
+						'Catch up with a friend.',
+						'family/friends',
+						'Stay in touch with friends.',
+						'week',
+						1,
+						'2022-08-28',
+					]
+				)
+			},
+			(_, error) => {
+				console.log('DB error insert third habit')
+				console.log(error)
+				resolve()
+			},
+			(_, success) => {
+				console.log('third habit setup successful')
+				resolve(success)
+			}
+		)
+	})
+}
+const setupFifthHabitAsync = async () => {
+	return new Promise((resolve, reject) => {
+		db.transaction(
+			(tx) => {
+				tx.executeSql(
+					`INSERT INTO habits(habitid, description, category, why, frequency, reps, start) VALUES(?,?,?,?,?,?,?)`,
+					[
+						5,
+						'Eat an apple.',
+						'family/friends',
+						'Keep the doctor away.',
+						'day',
+						1,
+						'2022-09-01',
+					]
+				)
+			},
+			(_, error) => {
+				console.log('DB error insert third habit')
+				console.log(error)
+				resolve()
+			},
+			(_, success) => {
+				console.log('third habit setup successful')
+				resolve(success)
+			}
+		)
+	})
+}
+
 const setupFirstValidationAsync = async () => {
 	return new Promise((resolve, reject) => {
 		db.transaction(
@@ -377,6 +436,8 @@ export const database = {
 	setupFirstHabitAsync,
 	setupSecondHabitAsync,
 	setupThirdHabitAsync,
+	setupForthHabitAsync,
+	setupFifthHabitAsync,
 	setupFirstValidationAsync,
 	dropDatabaseTablesAsync,
 }

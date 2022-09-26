@@ -21,7 +21,9 @@ const useDatabase = () => {
 				await database.setupFirstHabitAsync()
 				await database.setupSecondHabitAsync()
 				await database.setupThirdHabitAsync()
-				await database.setupFirstValidationAsync()
+				await database.setupForthHabitAsync()
+				await database.setupFifthHabitAsync()
+				// await database.setupFirstValidationAsync()
 
 				setIsDBLoadingComplete(true)
 			} catch (error) {
