@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
 	},
 	noHabitsText: {
 		fontSize: 20,
+		fontFamily: 'Lato_400Regular',
 		color: Colors.primary500,
 	},
 })

@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
 	optionText: {
 		overflow: 'hidden',
 		color: Colors.primary500,
+		fontFamily: 'Lato_400Regular',
 		marginRight: 8,
 		fontSize: 16,
 	},

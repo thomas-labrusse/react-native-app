@@ -14,5 +14,6 @@ export default CurrentStreak
 const styles = StyleSheet.create({
 	text: {
 		color: Colors.primary500,
+		fontFamily: 'Lato_400Regular',
 	},
 })

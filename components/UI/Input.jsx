@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
 		padding: 6,
 		borderRadius: 6,
 		fontSize: 16,
+		fontFamily: 'Lato_400Regular',
 		marginHorizontal: 4,
 		marginBottom: 16,
 	},

@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		fontSize: 14,
+		fontFamily: 'Lato_400Regular',
 		color: Colors.grey400,
 	},
 	checkButton: {

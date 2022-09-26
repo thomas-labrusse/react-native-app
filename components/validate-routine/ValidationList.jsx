@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
 	},
 	noChecksText: {
 		fontSize: 20,
+		fontFamily: 'Lato_400Regular',
 		color: Colors.primary500,
 	},
 	validationList: {

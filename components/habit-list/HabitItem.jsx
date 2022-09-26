@@ -112,7 +112,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'row',
 		alignItems: 'center',
-		// backgroundColor: Colors.primary100,
 	},
 	textContainer: {
 		flex: 6,
@@ -121,6 +120,7 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		fontSize: 16,
+		fontFamily: 'Lato_400Regular',
 		color: Colors.primary500,
 	},
 	frequencyIconContainer: {
@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
 	},
 	frequencyIconText: {
 		fontSize: 10,
+		fontFamily: 'Lato_400Regular',
 		color: Colors.primary500,
 	},
 	iconContainer: {

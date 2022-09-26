@@ -161,6 +161,7 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 22,
 		fontWeight: 'bold',
+		fontFamily: 'Lato_700Bold',
 		color: Colors.primary500,
 		marginTop: 8,
 		marginBottom: 20,
@@ -187,6 +188,7 @@ const styles = StyleSheet.create({
 	tagText: {
 		fontSize: 12,
 		color: Colors.grey400,
+		fontFamily: 'Lato_400Regular',
 	},
 	viewButtonsContainer: {
 		flexDirection: 'row',

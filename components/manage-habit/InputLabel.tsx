@@ -11,6 +11,7 @@ export default InputLabel
 const styles = StyleSheet.create({
 	label: {
 		fontSize: 12,
+		fontFamily: 'Lato_400Regular',
 		color: Colors.primary300,
 		marginBottom: 4,
 		marginHorizontal: 4,

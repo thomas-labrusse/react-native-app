@@ -68,7 +68,6 @@ const HabitForm = ({
 		// 	: initialValues.validations,
 	})
 
-
 	const routineContext = useContext(RoutineContext)
 
 	const inputChangeHandler = (inputIdentifier, text) => {
@@ -230,19 +229,10 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderRadius: 6,
 	},
-	// textInput: {
-	// 	borderWidth: 1,
-	// 	borderColor: Colors.primary300,
-	// 	backgroundColor: Colors.primary300,
-	// 	color: Colors.primary500,
-	// 	borderRadius: 6,
-	// 	width: '100%',
-	// 	padding: 16,
-	// 	fontSize: 16,
-	// },
 	unionText: {
 		color: Colors.primary500,
 		fontSize: 16,
+		fontFamily: 'Lato_400Regular',
 	},
 	buttonsContainer: {
 		flexDirection: 'row',

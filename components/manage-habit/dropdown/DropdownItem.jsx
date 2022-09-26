@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
 	optionText: {
 		fontSize: 20,
 		color: Colors.primary500,
+		fontFamily: 'Lato_400Regular',
 	},
 	itemPressed: {
 		opacity: 0.6,

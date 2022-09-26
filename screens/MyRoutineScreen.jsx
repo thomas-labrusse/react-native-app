@@ -143,7 +143,7 @@ const MyRoutineScreen = ({ navigation }) => {
 			isSortMenuVisible && (
 				<View style={styles.sortMenuContainer}>
 					<View style={styles.sortMenuSubContainerTop}>
-						<Text>Filter</Text>
+						<Text style={styles.text}>Filter</Text>
 						<View style={styles.sortMenuButtonsContainer}>
 							<PrimaryButton
 								onPress={applyFilter.bind(this, 'day')}
@@ -172,7 +172,7 @@ const MyRoutineScreen = ({ navigation }) => {
 						</View>
 					</View>
 					<View style={styles.sortMenuSubContainerBottom}>
-						<Text>Sort by</Text>
+						<Text style={styles.text}>Sort by</Text>
 						<View style={styles.sortMenuButtonsContainer}>
 							<PrimaryButton
 								onPress={sortRoutine.bind(this, 'category')}
@@ -245,5 +245,9 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 		marginLeft: 6,
+	},
+	text: {
+		fontFamily: 'Lato_400Regular',
+		color: Colors.primary500,
 	},
 })
