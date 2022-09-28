@@ -2,7 +2,15 @@ import React from 'react'
 import { ImageBackground, StyleSheet } from 'react-native'
 const image = require('../../assets/images/checkmark-outline-4.png')
 
-const ImageBackgroundWrapper = ({ isChecked, children }) => {
+interface ImageBackgroundWrapperProps {
+	isChecked: boolean
+	children?: React.ReactNode
+}
+
+const ImageBackgroundWrapper = ({
+	isChecked,
+	children,
+}: ImageBackgroundWrapperProps) => {
 	return (
 		<>
 			{isChecked ? (

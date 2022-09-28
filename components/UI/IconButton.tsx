@@ -3,7 +3,15 @@ import { View, Pressable, StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { Colors } from '../../constants/colors'
 
-const IconButton = ({
+type IconButtonProps = {
+	name: keyof typeof Ionicons.glyphMap
+	size: number
+	onPress: () => void
+	backgroundColor: string
+	color: string
+}
+
+const IconButton: React.FC<IconButtonProps> = ({
 	name,
 	size = 24,
 	onPress,

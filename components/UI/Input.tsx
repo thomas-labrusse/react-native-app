@@ -1,9 +1,13 @@
 import React from 'react'
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { TextInput, StyleSheet, TextInputProps } from 'react-native'
 import { Colors } from '../../constants/colors'
 
-const Input = ({ textInputConfig }) => {
-	const inputStyles = [styles.input]
+type InputProps = {
+	textInputConfig: TextInputProps
+}
+
+const Input = ({ textInputConfig }: InputProps) => {
+	const inputStyles: any = [styles.input]
 
 	if (textInputConfig && textInputConfig.multiline) {
 		inputStyles.push(styles.inputMultiline)
