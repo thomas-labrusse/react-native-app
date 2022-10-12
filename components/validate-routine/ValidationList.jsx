@@ -41,8 +41,6 @@ const lastXDates = getLastXDates(31)
 const ValidationList = ({ habitId, validations, setValidations, start }) => {
 	const [unvalidatedDates, setUnvalidatedDates] = useState(lastXDates)
 
-	console.log('Validations in ValidationList:', validations)
-
 	useLayoutEffect(() => {
 		const unvalidatedDatesList = filterUnvalidated(
 			validations,

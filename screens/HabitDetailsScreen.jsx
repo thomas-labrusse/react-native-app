@@ -63,7 +63,7 @@ const HabitDetailsScreen = ({ route, navigation }) => {
 			'Are you sure ?',
 			"Deleting an habit will permanently delete all your related records and stats, you won't be able to get it back.",
 			[
-				{ text: 'Cancel', onPress: () => console.log('Delete canceled') },
+				{ text: 'Cancel', onPress: () => {} },
 				{
 					text: 'Confirm',
 					onPress: () => {

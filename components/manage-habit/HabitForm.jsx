@@ -47,9 +47,6 @@ const HabitForm = ({
 }) => {
 	const [inputs, setInputs] = useState({
 		habitid: defaultValues && defaultValues.habitid,
-		// NOTE: test with DB
-		// NOTE: id is set by sqlite
-		// id: defaultValues ? defaultValues.id : null,
 		description: defaultValues
 			? defaultValues.description
 			: initialValues.description,
@@ -62,10 +59,6 @@ const HabitForm = ({
 			? defaultValues.frequency
 			: initialValues.frequency.value,
 		start: defaultValues ? defaultValues.start : initialValues.start,
-		// NOTE: test with DB
-		// validations: defaultValues
-		// 	? defaultValues.validations
-		// 	: initialValues.validations,
 	})
 
 	const routineContext = useContext(RoutineContext)
@@ -149,7 +142,6 @@ const HabitForm = ({
 						onChangeText: inputChangeHandler.bind(this, 'why'),
 					}}
 				/>
-				{/* TODO: allow to select initial value for Dropdown component */}
 				<InputLabel label='Category' />
 				<Dropdown
 					values={Categories}
@@ -161,7 +153,6 @@ const HabitForm = ({
 				<View style={styles.seperator}></View>
 				<InputLabel label='Frequency' />
 				<View style={styles.frequencyContainer}>
-					{/* NOTE: only 1 rep allowed for a daily habit */}
 					{inputs.frequency === 'week' && (
 						<Dropdown
 							values={WeekReps}

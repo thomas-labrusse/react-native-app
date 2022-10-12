@@ -14,8 +14,6 @@ import {
 const DailyStats = ({ validations, start }) => {
 	const [allValidations, setAllValidations] = useState([{}])
 
-	// console.log('All validations :', allValidations)
-
 	useEffect(() => {
 		const parsedValidations = parseValidationsLastXDates(28, validations, start)
 		setAllValidations(parsedValidations)

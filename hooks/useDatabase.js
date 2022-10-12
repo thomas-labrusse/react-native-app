@@ -23,11 +23,9 @@ const useDatabase = () => {
 				await database.setupThirdHabitAsync()
 				await database.setupForthHabitAsync()
 				await database.setupFifthHabitAsync()
-				// await database.setupFirstValidationAsync()
 
 				setIsDBLoadingComplete(true)
 			} catch (error) {
-				console.log('Getting an error on loading data')
 				console.warn(error)
 			}
 		}

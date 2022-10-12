@@ -80,9 +80,7 @@ const getHabits = (successFunc) => {
 			console.log('db error when loading habits')
 			console.log(error)
 		},
-		(_, _success) => {
-			// console.log('loaded habits')
-		}
+		(_, _success) => {}
 	)
 }
 
@@ -183,7 +181,6 @@ const getValidations = (habitid, successFunc) => {
 				(_, { rows: { _array } }) => {
 					console.log('loading validations :', _array)
 					successFunc(_array)
-					// console.log('NEW VALIDATIONS UPDATED:', _array)
 				}
 			)
 		},
@@ -191,9 +188,7 @@ const getValidations = (habitid, successFunc) => {
 			console.log('db error load validations')
 			console.log(error)
 		},
-		(_, _success) => {
-			// console.log('loaded validations')
-		}
+		(_, _success) => {}
 	)
 }
 
@@ -204,9 +199,8 @@ const getXValidations = (habitid, x, successFunc) => {
 				`SELECT * FROM validations WHERE habitid = ? ORDER BY validationdate DESC LIMIT ?`,
 				[habitid, x],
 				(_, { rows: { _array } }) => {
-					// console.log('loading validations :', _array)
+					console.log('Validation array from DB:', _array)
 					successFunc(_array)
-					// console.log('NEW VALIDATIONS UPDATED:', _array)
 				}
 			)
 		},
@@ -266,7 +260,7 @@ const setupFirstHabitAsync = async () => {
 						'Have the time to workout in the morning',
 						'day',
 						1,
-						'2022-08-01',
+						'2022-09-12',
 					]
 				)
 			},
@@ -296,7 +290,7 @@ const setupSecondHabitAsync = async () => {
 						'To be fit as a fiddle, feel alert and ready.',
 						'week',
 						5,
-						'2022-08-28',
+						'2022-09-12',
 					]
 				)
 			},
@@ -325,7 +319,7 @@ const setupThirdHabitAsync = async () => {
 						'To touch my toes.',
 						'week',
 						1,
-						'2022-08-25',
+						'2022-09-12',
 					]
 				)
 			},
@@ -354,7 +348,7 @@ const setupForthHabitAsync = async () => {
 						'Stay in touch with friends.',
 						'week',
 						1,
-						'2022-08-28',
+						'2022-09-12',
 					]
 				)
 			},
@@ -383,7 +377,7 @@ const setupFifthHabitAsync = async () => {
 						'Keep the doctor away.',
 						'day',
 						1,
-						'2022-09-01',
+						'2022-09-12',
 					]
 				)
 			},

@@ -37,14 +37,8 @@ const HabitItem = ({ habit }) => {
 				setIsChecked(true)
 			}
 		} else if (frequency === 'week') {
-			console.log(
-				'Checking the following validations for week check :',
-				validations
-			)
 			const currentWeek = getCurrentWeek(validations)
-			console.log('Current week for validation check :', currentWeek)
 			const isWeekValidated = checkIsWeekValidated(currentWeek, reps)
-			console.log('Is week checked:', isWeekValidated)
 			setIsChecked(isWeekValidated)
 		}
 	}

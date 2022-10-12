@@ -49,6 +49,7 @@ export default function App() {
 	// keep the splash screen visible while fetching db
 	SplashScreen.preventAutoHideAsync()
 
+	//
 	const isDBLoadingComplete = useDatabase()
 
 	const [fontsLoaded] = useFonts({

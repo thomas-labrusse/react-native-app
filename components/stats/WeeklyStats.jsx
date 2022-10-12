@@ -14,8 +14,6 @@ import {
 const WeeklyStats = ({ validations, start, reps }) => {
 	const [allValidations, setAllValidations] = useState([[]])
 
-	console.log('allValidations:', allValidations)
-
 	useEffect(() => {
 		const parsedValidationsByWeeks = parseValidationsByWeeks(
 			7,

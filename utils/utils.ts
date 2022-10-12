@@ -105,8 +105,11 @@ export const getCurrentWeek = (
 		}
 	]
 ) => {
-	let firstMondayIndex
-	for (let i = 0; i < 8; i++) {
+	// let firstMondayIndex
+	let firstMondayIndex = 0
+	let loops = validations.length >= 8 ? 8 : validations.length
+	// for (let i = 0; i < validations.length || 8; i++) {
+	for (let i = 0; i < loops; i++) {
 		if (stringDateToDateObject(validations[i].validationdate).getDay() === 1) {
 			firstMondayIndex = i
 			break
@@ -138,6 +141,9 @@ export const parseValidationsByWeeks = (
 
 	// 2/ find id of first monday
 	let firstMondayIndex
+	// let firstMondayIndex = 0
+	// let loops = validations.length >= 8 ? 8 : validations.length
+	// for (let i = 0; i < loops; i++) {
 	for (let i = 0; i < 8; i++) {
 		if (
 			stringDateToDateObject(completeValidations[i].validationdate).getDay() ===

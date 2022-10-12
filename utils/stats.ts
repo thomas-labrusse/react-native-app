@@ -99,7 +99,6 @@ export const getCurrentWeekStreak = (
 	reps: number
 ): number => {
 	let currentStreak = 0
-	console.log('Validation to check for current week streak:', validations)
 	for (let i = 0; i < validations.length; i++) {
 		if (checkIsWeekValidated(validations[i], reps)) {
 			currentStreak = currentStreak + 1
