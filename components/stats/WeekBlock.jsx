@@ -12,13 +12,15 @@ const WeekBlock = ({ weekValidations, validated }) => {
 					: [styles.container, styles.failed]
 			}
 		>
-			{weekValidations.map((date, index) => (
-				<DayBlock
-					key={index.toString()}
-					date={date.validationdate}
-					check={date.validationcheck}
-				/>
-			))}
+			{weekValidations.map((date, index) => {
+				return (
+					<DayBlock
+						key={date.validationdate}
+						date={date.validationdate}
+						check={date.validationcheck}
+					/>
+				)
+			})}
 		</View>
 	)
 }

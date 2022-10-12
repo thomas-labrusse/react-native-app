@@ -8,7 +8,7 @@ const WeekCalendar = ({ validationsByWeek, reps }) => {
 		let validated = checkIsWeekValidated(weekValidations, reps)
 		return (
 			<WeekBlock
-				key={index.toString}
+				key={index.toString()}
 				weekValidations={weekValidations}
 				validated={validated}
 			/>
